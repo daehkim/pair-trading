@@ -1,5 +1,4 @@
 # The source of this file: https://medium.com/auquan/pairs-trading-data-science-7dbedafcfe5a
-# To run the venv in the Windows, use this command > Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 
 def find_cointegrated_pairs(data):
     n = data.shape[1]
@@ -22,3 +21,5 @@ def find_cointegrated_pairs(data):
 
 from backtester.dataSource.yahoo_data_source import YahooStockDataSource
 from datetime import datetime
+
+
