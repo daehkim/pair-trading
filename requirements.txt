@@ -1,7 +1,5 @@
 absl-py==0.9.0
-auquan-toolbox==2.1.91
 beautifulsoup4==4.9.1
-bs4==0.0.1
 cachetools==4.1.0
 certifi==2020.4.5.1
 chardet==3.0.4
@@ -15,7 +13,6 @@ lxml==4.5.1
 Markdown==3.2.2
 numpy==1.18.4
 oauthlib==3.1.0
-pandas==1.0.4
 pandas-datareader==0.8.1
 plotly==4.8.1
 protobuf==3.12.2
@@ -39,3 +36,6 @@ threadpoolctl==2.1.0
 urllib3==1.25.9
 Werkzeug==1.0.1
 zipp==3.1.0
+pandas==0.20.0
+bs4==4.9.1
+auquan-toolbox==2.1.91

@@ -1,5 +1,4 @@
 # The source of this file: https://medium.com/auquan/pairs-trading-data-science-7dbedafcfe5a
-# Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 
 def find_cointegrated_pairs(data):
     n = data.shape[1]
@@ -23,4 +22,18 @@ def find_cointegrated_pairs(data):
 from backtester.dataSource.yahoo_data_source import YahooStockDataSource
 from datetime import datetime
 
+startDateStr = '2007/12/01'
+endDateStr = '2020/06/01'
+cachedFolderName = 'yahooData/'
+dataSetId = 'testPairsTrading'
+instrumentIds = ['BP','CVX','XOM','USO','RDS.B','RDS.A']
+ds = YahooStockDataSource(cachedFolderName=cachedFolderName,
+                            dataSetId=dataSetId,
+                            instrumentIds=instrumentIds,
+                            startDateStr=startDateStr,
+                            endDateStr=endDateStr,
+                            event='history')
 
+data = ds.getBookDataByFeature()['Adj Close']
+
+#print(data.head(3))
