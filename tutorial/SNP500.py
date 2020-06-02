@@ -34,6 +34,6 @@ ds = YahooStockDataSource(cachedFolderName=cachedFolderName,
                             endDateStr=endDateStr,
                             event='history')
 
-data = ds.getBookDataByFeature()['Adj Close']
+#data = ds.getBookDataByFeature()['Adj Close']
 
 #print(data.head(3))
