@@ -1,4 +1,5 @@
 # The source of this file: https://medium.com/auquan/pairs-trading-data-science-7dbedafcfe5a
+# Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 
 def find_cointegrated_pairs(data):
     n = data.shape[1]
