@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# Introduction to Pairs Trading
+## Introduction to Pairs Trading
 
 The primary goal in an investment endeavor is the implementation of strategies that minimise the risk while also maximising the finanical gain or return from said investment. While there have been many popular strategies and techniques developed over the years that point towards the same goal, the 'Pairs-Trading' strategy is one that has been used to great extent in modern hedge-funds, for its simplicity and inherent market-neutral qualities. This strategy, often termed a statistical-arbitrage, relies on monitoring the correlation between a pair of stocks (known to be correlated). A long position is opened on the stock that rises and a short position is opened on the stock that falls. The underlying assumption in pairs-trading is that pairs of stocks, that have historically shown similarities in their behavior will eventually converge in the long run, even if they diverge in the short term, allowing the trader to profit off the pair regardless of the market. 
 
@@ -14,7 +14,7 @@ In such a strategy, identification of correlated stocks and generation of pairs 
 >
 > When something is important enough, you do it even if the odds are not in your favor.
 
-### Clustering Analysis
+## Clustering Analysis
 
 ```js
 // Javascript code with syntax highlighting.
