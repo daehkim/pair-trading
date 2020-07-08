@@ -8,13 +8,13 @@ The primary goal in an investment endeavor is the implementation of strategies t
 
 In such a strategy, identification of correlated stocks and generation of pairs is of paramount importance. In this project, we employ unsupervised learning techniques that include Desnity Based Spatial Cluster of Applications with Noise and K-Means Algorithm. Once, the relevant pairs have been identified, their price relations are extrapolated using supervised learning techniques such as Linear Regression. This overall methodoldogy will help provide insight into the relations between various stocks and facilate the generation of appropriate trading strategies for them.  
 
-## Dataset and Principal Component Analysis
+## Dataset and Preprocessing
 
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
+The datasets are provided by Wharton Research Data Services (WRDS). We mainly obtained the daily stock files from file from CRSP and quarterly fundamentals from Compustats for our purpose. Initially, our dataset consists stock price files from 3000 stocks which are constituents of Russell 3000. Those stocks' value and size are large enough to restore the whole market value, representing approximately 95% of the total market shares. We performed this pre-screening process to avoid the 'small-cap' trap in the market. Currently there are more than 6000 active stocks in the U.S. Stock Market but most of them are micro-valued. In reality, investors often cautiously avoid investing in those stocks, since trading even a small number of shares might has unpredictable effects on their stock prices. We should keep this in mind when doing acedamic research. We set the sample period from 2010-01-01 to 2015-12-31 for training strategies and use sample period 2016-01-01 to 2019-12-31 tfor backtesting. 
 
-## Clustering Analysis
+In our next stage, we want to pre-select eligible stocks which enable us sail through further steps. First we removed stocks that was dilisted, exchanged or merged during our sample period since those stocks are no longer tradable. Next we removed stocks that have negative price which will be problematic for further analysis. Stocks that are constantly trading at-low-volume also have to be removed since improper trading executions can largely change their stock prices and altered the history. Finally, we remove stocks that have more than half missing prices. Similar approach was performed to the financial fundamentals datasets. In the end, there are 1795 eligible stocks for further analysis. 
+
+## Principal Component Analysis and Clustering Analysis
 
 ```js
 // Javascript code with syntax highlighting.
