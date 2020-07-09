@@ -33,17 +33,23 @@ end
 
 ## Trading Strategy
 
-In this section, we will discuss about how we generate the z-score history by stock pair's price history. We generate the z-score history to decide when we long and short the stocks. The z-score is simply (spread)/(standard deviation of spread) and spread is calculated based on the stock pair's price history. The basic method to calculate the spread is using log of prices of stocks A and B.
+In this section, we will discuss how we generate the z-score history by stock pair's price history. We generate the z-score history to decide when we long and short the stocks. The z-score is simply (spread)/(standard deviation of spread) and spread is calculated based on the stock pair's price history. The basic method to calculate the spread is using a log of prices of stocks A and B.
 Spread = log(a) - nlog(b), where 'a' and 'b' are prices of stocks A and B respectively. The 'n' is the hedge ratio which is constant.
-Calculate 'n' using regression so that spread is as close to 0 as possible. Also, since the stocks A and B is cointegrated, the spread tends to be converge to 0. To calculate the spread, we used the polynomial linear regression and linear regression with Kalman filter. The data used to calculate the spread is the history of the stocks' prices for the previous 700 days. 
+Calculate 'n' using regression so that spread is as close to 0 as possible. Also, since stocks A and B are cointegrated, the spread tends to converge to 0. To calculate the spread, we used the polynomial linear regression and linear regression with the Kalman filter. The data used to calculate the spread is the history of the stocks' prices for the previous 700 days. 
 
 ### Polynomial linear regression
-We used the log of stock A's prices as data points and the log of stock B's prices as a label. We train the model with this datasets. After we generate the model, we predict the log(b) and calculate the spread as:
+We used the log of stock A's prices as data points and the log of stock B's prices as a label. We train the model with these datasets. After we generate the model, we predict the log(b) and calculate the spread as:
+
 Spread = lr.pred(log(a)) - log(b)
-It also leads us to calculate the z-score by following equation:
+
+It also leads us to calculate the z-score by the following equation:
+
 z-score = Spread / standard deviation
+
 The standard deviation is calculated by training data, which is the previous 700 days of prices' spread history.
-We also used the degree = 4 for the polynomial linear regression hyperparameter. If it becomes too big, it goes to overfitting and will not generate the spread. If there's no spread, we cannot decide when we long and short the stocks.
+We also used the degree = 4 for the polynomial linear regression hyperparameter. If it becomes too big, it goes to overfitting and will not generate the spread. If there's no spread, we cannot decide when we long and short the stocks. Here is the graph of z-score history for the stock pairs we have. You can see it converges.
+
+![z-score](https://https://github.com/daehkim/pair-trading/pictures/each_pair_z_score.png)
 
 ### Linear regression with Kalman Filter
 (Zhenyu Jia)
