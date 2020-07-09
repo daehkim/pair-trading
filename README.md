@@ -48,8 +48,19 @@ In this section, we will discuss testing. We apply our trading strategy to the r
 
 ### Implementation
 
-To simplify the backtesting, we just set the initial money as million dollars and the volume of the stocks we trading as 'total assets' / '# of pairs'. Therefore, if our current total asset is $100 and the number of stock pairs is 10, we long/short the stock only with $10. We also calculate the price of inverse(short) in the everyday base and we didn't consider the commission of trading to simplify.
+To simplify the backtesting, we just set the initial money as million dollars and the volume of the stocks we trading as 'total assets' / '# of pairs'. Therefore, if our current total asset is $100 and the number of stock pairs is 10, we long/short the stock only with $10. We also calculate the price of inverse (short) in the everyday base and we didn't consider the commission of trading to simplify.
 
+### Results
+
+We run the backtesting for all the timeline (2007~2015). Here are all the results from the back testing. The x-label is the daily based time. It does not include the market off-day. The y-label is the money (dollars).
+
+#### Each pair's assets
+
+![each assets](https://github.com/daehkim/pair-trading/blob/master/pictures/each_pair_assets.png)
+
+#### Total assets
+
+![total assets](https://github.com/daehkim/pair-trading/blob/master/pictures/total_assets.png)
 
 
 ```js
