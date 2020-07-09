@@ -17,6 +17,7 @@ In our next stage, we want to pre-select eligible stocks which enable us sail th
 ## Principal Component Analysis and Clustering Analysis
 
 
+
 ## Trading Strategy
 
 In this section, we will discuss how we generate the z-score history by stock pair's price history. We generate the z-score history to decide when we long and short the stocks. The z-score is simply (spread)/(standard deviation of spread) and spread is calculated based on the stock pair's price history. The basic method to calculate the spread is using a log of prices of stocks A and B.
@@ -24,6 +25,7 @@ Spread = log(a) - nlog(b), where 'a' and 'b' are prices of stocks A and B respec
 Calculate 'n' using regression so that spread is as close to 0 as possible. Also, since stocks A and B are cointegrated, the spread tends to converge to 0. To calculate the spread, we used the polynomial linear regression and linear regression with the Kalman filter. The data used to calculate the spread is the history of the stocks' prices for the previous 700 days. 
 
 ### Lnear Regression
+
 We used the log of stock A's prices as data points and the log of stock B's prices as a label. We train the model with these datasets. After we generate the model, we predict the log(b) and calculate the spread as:
 
 Spread = lr.pred(log(a)) - log(b)
@@ -32,13 +34,23 @@ It also leads us to calculate the z-score by the following equation:
 
 z-score = Spread / standard deviation
 
-The standard deviation is calculated by training data, which is the previous 700 days of prices' spread history.
+The standard deviation is calculated by training data, which is the training data prices' spread history.
 We also used the degree = 4 for the polynomial linear regression hyperparameter. If it becomes too big, it goes to overfitting and will not generate the spread. If the spread distribution is small, it is hard to decide when we long and short the stocks. Here is the example graph of z-score history for the stock pairs we have. You can see it converges.
 
 ![z-score](https://github.com/daehkim/pair-trading/blob/master/pictures/each_pair_z_score.png)
 
 ### Linear Regression with Kalman Filter
 (Zhenyu Jia)
+
+## Backtesting
+
+In this section, we will discuss testing. We apply our trading strategy to the real stock market and check how much we can earn based on our approach. We used the moving windows approach for the testing. For the training data, we used the previous 700 days stock prices. After we train the model with our machine learning algorithm, we calculate the z-score with the generated model and decide whether we will long or short the stocks. The input of backtesting is the z-score history generated in the 'trading strategy' part and the price history. Based on the input, we keep calculating the earning and loss of our stock and inverse. We also track the total asset history and return it as an output of backtesting.
+
+### Implementation
+
+To simplify the backtesting, we just set the initial money as million dollars and the volume of the stocks we trading as 'total assets' / '# of pairs'. Therefore, if our current total asset is $100 and the number of stock pairs is 10, we long/short the stock only with $10. We also calculate the price of inverse(short) in the everyday base and we didn't consider the commission of trading to simplify.
+
+
 
 ```js
 // Javascript code with syntax highlighting.
