@@ -49,7 +49,7 @@ z-score = Spread / standard deviation
 The standard deviation is calculated by training data, which is the previous 700 days of prices' spread history.
 We also used the degree = 4 for the polynomial linear regression hyperparameter. If it becomes too big, it goes to overfitting and will not generate the spread. If there's no spread, we cannot decide when we long and short the stocks. Here is the graph of z-score history for the stock pairs we have. You can see it converges.
 
-![z-score](https://github.com/daehkim/pair-trading/pictures/each_pair_z_score.png)
+![z-score](https://github.com/daehkim/pair-trading/blob/master/pictures/each_pair_z_score.png)
 
 ### Linear regression with Kalman Filter
 (Zhenyu Jia)
