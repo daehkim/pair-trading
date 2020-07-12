@@ -16,15 +16,30 @@ In our next stage, we want to pre-select eligible stocks that enable us to sail 
 
 ## Principal Component Analysis and Clustering Analysis
 
+### Principal Component Analysis
+
+
 Two clustering algorithms were explored to create clusters of stocks. It is to be noted here that during clustering, each individual stock price data and each individual financial ratios were considered independant features and clustering was done based on the entire set of features as a whole. 
 ### Density-based spatial clustering of applications with Noise
 The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resulted in the formation of 11 clusters. A simple visualization of the cluster in the form of a T-SNE plot is shown below:
 ![T-SNE plot for DBSCAN](https://github.com/daehkim/pair-trading/blob/master/pictures/DBSCAN_plots/T-SNE_plot_for_stock_clusters.png)
 The following figure shows the number of members in each cluster, demontrating the fact that a huge proportion of the stocks are bunched into a single cluster. This disproportionate distribution of the stocks in clusters is expected to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
 ![Cluster Member counts for DBSCAN](https://github.com/daehkim/pair-trading/blob/master/pictures/DBSCAN_plots/cluster_member_counts.png)
-In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the socks in 4 of the 11 clustered are illustrated below. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices. 
+
+In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the stocks in 4 of the 11 clusters are illustrated below. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices. 
 ![Stock price in each cluster](https://github.com/daehkim/pair-trading/blob/master/pictures/DBSCAN_plots/combined_time_Series.png)
 
+### KMeans Clustering
+The KMeans clustering algorithm is a popular clustering methodolgy employed in pair-trading implementeations. The most important aspect of this algorithm is the determination of the number of clusters. This can be ascertained using an elbow-method based cross-validation technique. There are three loss-metrics (or scores) that can be used in the elbow method which are: 
+
+1) Distortion Score:
+2) Silhouette Score:
+3) Calinski Harabz Score:
+
+The elbow for each of the above mentioned score is illustrated below. An average of the elbow from each of these independant metrics was finally used in training the KMeans Algorithm. 
+
+Therefore, the Kmeans clustering was finally implemented by pre-defining the number of clusters to be 14. The following plot shows a visualization of the clustered datapoints in the form of a T-SNE plot. Again, similar to what was observed with DBSCAN, we notice a slight disproportionality in the size of each cluster, which as mentioned before, can be expected. 
+![Cluster Member counts for DBSCAN](https://github.com/daehkim/pair-trading/blob/master/pictures/Kmeans_plots/T_SNE_kmeans.png)
 
 ## Trading Strategy
 
