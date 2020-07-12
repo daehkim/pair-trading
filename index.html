@@ -45,7 +45,7 @@ Calculate 'n' using regression so that spread is as close to 0 as possible. Also
 <p>z-score = Spread / standard deviation</p>
 <p>The standard deviation is calculated by training data, which is the training data prices' spread history.
 We also used the degree = 4 for the polynomial linear regression hyperparameter. If it becomes too big, it goes to overfitting and will not generate the spread. If the spread distribution is small, it is hard to decide when we long and short the stocks. Here is the example graph of z-score history for the stock pairs we have. You can see it converges.</p>
-<p><img src="https://github.com/daehkim/pair-trading/blob/master/pictures/each_pair_z_score.png" alt="z-score"></p>
+<p><img src="https://github.com/daehkim/pair-trading/blob/master/pictures/EachZscore.png" alt="z-score"></p>
 <h3>
 <a id="linear-regression-with-kalman-filter" class="anchor" href="#linear-regression-with-kalman-filter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Linear Regression with Kalman Filter</h3>
 <p>(Zhenyu Jia)</p>
@@ -60,11 +60,10 @@ We also used the degree = 4 for the polynomial linear regression hyperparameter.
 <p>We run the backtesting for all the timeline (2007~2015). Here are all the results from the backtesting. The x-label is the daily based time. It does not include market off-day. The y-label is the money (dollars).</p>
 <h4>
 <a id="each-pairs-assets" class="anchor" href="#each-pairs-assets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Each pair's assets</h4>
-<p><img src="https://guides.github.com/activities/hello-world/branching.png" alt="Branching"></p>
-<p><img src="https://github.com/daehkim/pair-trading/blob/master/pictures/each_pair_assets.png" alt="each assets"></p>
+<p><img src="https://github.com/daehkim/pair-trading/blob/master/pictures/EachPairAssets.png" alt="EachAssets"></p>
 <h4>
 <a id="total-assets" class="anchor" href="#total-assets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Total assets</h4>
-<p><img src="https://github.com/daehkim/pair-trading/blob/master/pictures/total_assets.png" alt="total assets"></p>
+<p><img src="https://github.com/daehkim/pair-trading/blob/master/pictures/TotalAssets.png" alt="TotalAssets"></p>
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// Javascript code with syntax highlighting.</span>
 <span class="pl-k">var</span> <span class="pl-en">fun</span> <span class="pl-c1">=</span> <span class="pl-k">function</span> <span class="pl-en">lang</span><span class="pl-kos">(</span><span class="pl-s1">l</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
   <span class="pl-s1">dateformat</span><span class="pl-kos">.</span><span class="pl-c1">i18n</span> <span class="pl-c1">=</span> <span class="pl-en">require</span><span class="pl-kos">(</span><span class="pl-s">'./lang/'</span> <span class="pl-c1">+</span> <span class="pl-s1">l</span><span class="pl-kos">)</span>
