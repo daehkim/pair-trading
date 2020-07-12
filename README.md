@@ -22,7 +22,8 @@ The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resul
 ![T-SNE plot for DBSCAN](https://github.com/daehkim/pair-trading/blob/master/pictures/DBSCAN_plots/T-SNE_plot_for_stock_clusters.png)
 The following figure shows the number of members in each cluster, demontrating the fact that a huge proportion of the stocks are bunched into a single cluster. This disproportionate distribution of the stocks in clusters is expected to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
 ![Cluster Member counts for DBSCAN](https://github.com/daehkim/pair-trading/blob/master/pictures/DBSCAN_plots/cluster_member_counts.png)
-Finally the following plots show the time series stock price data for the stocks in the same cluster. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices. 
+In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the socks in 4 of the 11 clustered are illustrated below. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices. 
+![Stock price in each cluster](https://github.com/daehkim/pair-trading/blob/master/pictures/DBSCAN_plots/combined_time_Series.png)
 
 
 ## Trading Strategy
