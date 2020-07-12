@@ -32,6 +32,29 @@
 <p>In our next stage, we want to pre-select eligible stocks that enable us to sail through further steps. First, we removed stocks that were delisted, exchanged, or merged during our sample period since those stocks are no longer tradable. Next, we removed stocks that have negative prices which will be problematic for further analysis. Stocks that are constantly trading at-low-volume also have to be removed since improper trading executions can largely change their stock prices and altered history. Finally, we remove stocks that have more than half missing prices. A similar approach was performed on the financial fundamentals of datasets. In the end, there are 1795 eligible stocks for further analysis.</p>
 <h2>
 <a id="principal-component-analysis-and-clustering-analysis" class="anchor" href="#principal-component-analysis-and-clustering-analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Principal Component Analysis and Clustering Analysis</h2>
+<h3>
+<a id="principal-component-analysis" class="anchor" href="#principal-component-analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Principal Component Analysis</h3>
+<p>Two clustering algorithms were explored to create clusters of stocks. It is to be noted here that during clustering, each individual stock price data and each individual financial ratios were considered independant features and clustering was done based on the entire set of features as a whole.</p>
+<h3>
+<a id="density-based-spatial-clustering-of-applications-with-noise" class="anchor" href="#density-based-spatial-clustering-of-applications-with-noise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Density-based spatial clustering of applications with Noise</h3>
+<p>The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resulted in the formation of 11 clusters. A simple visualization of the cluster in the form of a T-SNE plot is shown below:
+<img src="https://github.com/daehkim/pair-trading/blob/master/pictures/DBSCAN_plots/T-SNE_plot_for_stock_clusters.png" alt="T-SNE plot for DBSCAN">
+The following figure shows the number of members in each cluster, demontrating the fact that a huge proportion of the stocks are bunched into a single cluster. This disproportionate distribution of the stocks in clusters is expected to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
+<img src="https://github.com/daehkim/pair-trading/blob/master/pictures/DBSCAN_plots/cluster_member_counts.png" alt="Cluster Member counts for DBSCAN"></p>
+<p>In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the stocks in 4 of the 11 clusters are illustrated below. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices.
+<img src="https://github.com/daehkim/pair-trading/blob/master/pictures/DBSCAN_plots/combined_time_Series.png" alt="Stock price in each cluster"></p>
+<h3>
+<a id="kmeans-clustering" class="anchor" href="#kmeans-clustering" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>KMeans Clustering</h3>
+<p>The KMeans clustering algorithm is a popular clustering methodolgy employed in pair-trading implementeations. The most important aspect of this algorithm is the determination of the number of clusters. This can be ascertained using an elbow-method based cross-validation technique. There are three loss-metrics (or scores) that can be used in the elbow method which are:</p>
+<ol>
+<li>Distortion Score:</li>
+<li>Silhouette Score:</li>
+<li>Calinski Harabz Score:</li>
+</ol>
+<p>The elbow for each of the above mentioned score is illustrated below. An average of the elbow from each of these independant metrics was finally used in training the KMeans Algorithm.
+<img src="https://github.com/daehkim/pair-trading/blob/master/pictures/Kmeans_plots/elbow.PNG" alt="Elbow Plots for KMEANS"></p>
+<p>The following plot shows a visualization of the clustered datapoints in the form of a T-SNE plot. Again, similar to what was observed with DBSCAN, we notice a slight disproportionality in the size of each cluster, which as mentioned before, can be expected.
+<img src="https://github.com/daehkim/pair-trading/blob/master/pictures/Kmeans_plots/T_SNE_kmeans.png" alt="Cluster Member counts for DBSCAN"></p>
 <h2>
 <a id="trading-strategy" class="anchor" href="#trading-strategy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Trading Strategy</h2>
 <p>In this section, we will discuss how we generate the z-score history by stock pair's price history. We generate the z-score history to decide when we long and short the stocks. The z-score is simply (spread)/(standard deviation of spread) and spread is calculated based on the stock pair's price history. The basic method to calculate the spread is using a log of prices of stocks A and B.
