@@ -17,9 +17,9 @@ In our next stage, we want to pre-select eligible stocks that enable us to sail 
 ## Principal Component Analysis and Clustering Analysis
 
 ### Principal Component Analysis
+Considering the very high number of features within the dataset (which inlcudes both realtime stock data as well as several financial ratios), it is pertienent to use Principal Component Analysis to reduce the dimensionality of the dataset to ease computation. For this methodology, PCA must be performed independantly on the time series stock price data and the financial ratios. It should also be noted that each datapoint in the time searies data is considered to be 1 individal feature. After PCA, the time series data is reduced to 50 principal components and the financial ratios are reduced to 5 principal components. The resultant reduced datasets are then concatenated to create a 55 dimensional training dataset which is then used for clustering.
 
-
-Two clustering algorithms were explored to create clusters of stocks. It is to be noted here that during clustering, each individual stock price data and each individual financial ratios were considered independant features and clustering was done based on the entire set of features as a whole. 
+Two clustering algorithms were explored to create clusters of stocks: 
 ### Density-based spatial clustering of applications with Noise
 The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resulted in the formation of 11 clusters. A simple visualization of the cluster in the form of a T-SNE plot is shown below:
 ![T-SNE plot for DBSCAN](https://github.com/daehkim/pair-trading/blob/master/pictures/DBSCAN_plots/T-SNE_plot_for_stock_clusters.png)
@@ -41,6 +41,7 @@ The elbow for each of the above mentioned score is illustrated below. An average
 
 The following plot shows a visualization of the clustered datapoints in the form of a T-SNE plot. Again, similar to what was observed with DBSCAN, we notice a slight disproportionality in the size of each cluster, which as mentioned before, can be expected. 
 ![Cluster Member counts for DBSCAN](https://github.com/daehkim/pair-trading/blob/master/pictures/Kmeans_plots/T_SNE_kmeans.png)
+### Pair selection
 
 ## Trading Strategy
 
