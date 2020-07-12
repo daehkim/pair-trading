@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Pair-trading by daehkim</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Pair-trading</h1>
+      <h2 class="project-tagline">CS7641 project</h2>
+      <a href="https://github.com/daehkim/pair-trading" class="btn">View on GitHub</a>
+      <a href="https://github.com/daehkim/pair-trading/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/daehkim/pair-trading/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <hr>
+<h2>
+<a id="layout-default" class="anchor" href="#layout-default" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>layout: default</h2>
+<h2>
+<a id="introduction-to-pairs-trading" class="anchor" href="#introduction-to-pairs-trading" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction to Pairs Trading</h2>
+<p>The primary goal in an investment endeavor is the implementation of strategies that minimise the risk while also maximising the finanical gain or return from said investment. While there have been many popular strategies and techniques developed over the years that point towards the same goal, the 'Pairs-Trading' strategy is one that has been used to great extent in modern hedge-funds, for its simplicity and inherent market-neutral qualities. This strategy, often termed a statistical-arbitrage, relies on monitoring the correlation between a pair of stocks (known to be correlated). A long position is opened on the stock that rises and a short position is opened on the stock that falls. The underlying assumption in pairs-trading is that pairs of stocks, that have historically shown similarities in their behavior will eventually converge in the long run, even if they diverge in the short term, allowing the trader to profit off the pair regardless of the market.</p>
+<p>In such a strategy, identification of correlated stocks and generation of pairs is of paramount importance. In this project, we employ unsupervised learning techniques that include Desnity Based Spatial Cluster of Applications with Noise and K-Means Algorithm. Once, the relevant pairs have been identified, their price relations are extrapolated using supervised learning techniques such as Linear Regression. This overall methodoldogy will help provide insight into the relations between various stocks and facilate the generation of appropriate trading strategies for them.</p>
+<h2>
+<a id="dataset-and-preprocessing" class="anchor" href="#dataset-and-preprocessing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dataset and Preprocessing</h2>
+<p>The datasets are provided by Wharton Research Data Services (WRDS). We mainly obtained the daily stock files from file from CRSP and quarterly fundamentals from Compustats for our purpose. Initially, our dataset consists stock price files from 3000 stocks which are constituents of Russell 3000. Those stocks' value and size are large enough to restore the whole market value, representing approximately 95% of the total market shares. We performed this pre-screening process to avoid the 'small-cap' trap in the market. Currently there are more than 6000 active stocks in the U.S. Stock Market but most of them are micro-valued. In reality, investors often cautiously avoid investing in those stocks, since trading even a small number of shares might has unpredictable effects on their stock prices. We should keep this in mind when doing acedamic research. We set the sample period from 2010-01-01 to 2015-12-31 for training strategies and use sample period 2016-01-01 to 2019-12-31 for backtesting.</p>
+<p>In our next stage, we want to pre-select eligible stocks which enable us sail through further steps. First we removed stocks that was dilisted, exchanged or merged during our sample period since those stocks are no longer tradable. Next we removed stocks that have negative price which will be problematic for further analysis. Stocks that are constantly trading at-low-volume also have to be removed since improper trading executions can largely change their stock prices and altered the history. Finally, we remove stocks that have more than half missing prices. Similar approach was performed to the financial fundamentals datasets. In the end, there are 1795 eligible stocks for further analysis.</p>
+<h2>
+<a id="principal-component-analysis-and-clustering-analysis" class="anchor" href="#principal-component-analysis-and-clustering-analysis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Principal Component Analysis and Clustering Analysis</h2>
+<h2>
+<a id="trading-strategy" class="anchor" href="#trading-strategy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Trading Strategy</h2>
+<p>In this section, we will discuss how we generate the z-score history by stock pair's price history. We generate the z-score history to decide when we long and short the stocks. The z-score is simply (spread)/(standard deviation of spread) and spread is calculated based on the stock pair's price history. The basic method to calculate the spread is using a log of prices of stocks A and B.
+Spread = log(a) - nlog(b), where 'a' and 'b' are prices of stocks A and B respectively. The 'n' is the hedge ratio which is constant.
+Calculate 'n' using regression so that spread is as close to 0 as possible. Also, since stocks A and B are cointegrated, the spread tends to converge to 0. To calculate the spread, we used the polynomial linear regression and linear regression with the Kalman filter. The data used to calculate the spread is the history of the stocks' prices for the previous 700 days.</p>
+<h3>
+<a id="lnear-regression" class="anchor" href="#lnear-regression" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Lnear Regression</h3>
+<p>We used the log of stock A's prices as data points and the log of stock B's prices as a label. We train the model with these datasets. After we generate the model, we predict the log(b) and calculate the spread as:</p>
+<p>Spread = lr.pred(log(a)) - log(b)</p>
+<p>It also leads us to calculate the z-score by the following equation:</p>
+<p>z-score = Spread / standard deviation</p>
+<p>The standard deviation is calculated by training data, which is the training data prices' spread history.
+We also used the degree = 4 for the polynomial linear regression hyperparameter. If it becomes too big, it goes to overfitting and will not generate the spread. If the spread distribution is small, it is hard to decide when we long and short the stocks. Here is the example graph of z-score history for the stock pairs we have. You can see it converges.</p>
+<p><img src="https://github.com/daehkim/pair-trading/blob/master/pictures/each_pair_z_score.png" alt="z-score"></p>
+<h3>
+<a id="linear-regression-with-kalman-filter" class="anchor" href="#linear-regression-with-kalman-filter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Linear Regression with Kalman Filter</h3>
+<p>(Zhenyu Jia)</p>
+<h2>
+<a id="backtesting" class="anchor" href="#backtesting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Backtesting</h2>
+<p>In this section, we will discuss testing. We apply our trading strategy to the real stock market and check how much we can earn based on our approach. We used the moving windows approach for the testing. For the training data, we used the previous 700 days stock prices. After we train the model with our machine learning algorithm, we calculate the z-score with the generated model and decide whether we will long or short the stocks. The input of backtesting is the z-score history generated in the 'trading strategy' part and the price history. Based on the input, we keep calculating the earning and loss of our stock and inverse. We also track the total asset history and return it as an output of backtesting.</p>
+<h3>
+<a id="implementation" class="anchor" href="#implementation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Implementation</h3>
+<p>To simplify the backtesting, we just set the initial money as million dollars and the volume of the stocks we trading as 'total assets' / '# of pairs'. Therefore, if our current total asset is $100 and the number of stock pairs is 10, we long/short the stock only with $10. We also calculate the price of inverse (short) in the everyday base and we didn't consider the commission of trading to simplify.</p>
+<h3>
+<a id="results" class="anchor" href="#results" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results</h3>
+<p>We run the backtesting for all the timeline (2007~2015). Here are all the results from the back testing. The x-label is the daily based time. It does not include the market off-day. The y-label is the money (dollars).</p>
+<h4>
+<a id="each-pairs-assets" class="anchor" href="#each-pairs-assets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Each pair's assets</h4>
+<p><img src="https://github.com/daehkim/pair-trading/blob/master/pictures/each_pair_assets.png" alt="each assets"></p>
+<h4>
+<a id="total-assets" class="anchor" href="#total-assets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Total assets</h4>
+<p><img src="https://github.com/daehkim/pair-trading/blob/master/pictures/total_assets.png" alt="total assets"></p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Javascript code with syntax highlighting.</span>
+<span class="pl-k">var</span> <span class="pl-en">fun</span> <span class="pl-c1">=</span> <span class="pl-k">function</span> <span class="pl-en">lang</span><span class="pl-kos">(</span><span class="pl-s1">l</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+  <span class="pl-s1">dateformat</span><span class="pl-kos">.</span><span class="pl-c1">i18n</span> <span class="pl-c1">=</span> <span class="pl-en">require</span><span class="pl-kos">(</span><span class="pl-s">'./lang/'</span> <span class="pl-c1">+</span> <span class="pl-s1">l</span><span class="pl-kos">)</span>
+  <span class="pl-k">return</span> <span class="pl-c1">true</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span></pre></div>
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c"># Ruby code with syntax highlighting</span>
+<span class="pl-v">GitHubPages</span>::<span class="pl-v">Dependencies</span><span class="pl-kos">.</span><span class="pl-en">gems</span><span class="pl-kos">.</span><span class="pl-en">each</span> <span class="pl-k">do</span> |<span class="pl-s1">gem</span><span class="pl-kos">,</span> <span class="pl-s1">version</span>|
+  <span class="pl-en">s</span><span class="pl-kos">.</span><span class="pl-en">add_dependency</span><span class="pl-kos">(</span><span class="pl-s1">gem</span><span class="pl-kos">,</span> <span class="pl-s">"= <span class="pl-s1"><span class="pl-kos">#{</span><span class="pl-s1">version</span><span class="pl-kos">}</span></span>"</span><span class="pl-kos">)</span>
+<span class="pl-k">end</span></pre></div>
+<h4>
+<a id="header-4" class="anchor" href="#header-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Header 4</h4>
+<ul>
+<li>This is an unordered list following a header.</li>
+<li>This is an unordered list following a header.</li>
+<li>This is an unordered list following a header.</li>
+</ul>
+<h5>
+<a id="header-5" class="anchor" href="#header-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Header 5</h5>
+<ol>
+<li>This is an ordered list following a header.</li>
+<li>This is an ordered list following a header.</li>
+<li>This is an ordered list following a header.</li>
+</ol>
+<h6>
+<a id="header-6" class="anchor" href="#header-6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Header 6</h6>
+<table>
+<thead>
+<tr>
+<th align="left">head1</th>
+<th align="left">head two</th>
+<th align="left">three</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">ok</td>
+<td align="left">good swedish fish</td>
+<td align="left">nice</td>
+</tr>
+<tr>
+<td align="left">out of stock</td>
+<td align="left">good and plenty</td>
+<td align="left">nice</td>
+</tr>
+<tr>
+<td align="left">ok</td>
+<td align="left">good <code>oreos</code>
+</td>
+<td align="left">hmm</td>
+</tr>
+<tr>
+<td align="left">ok</td>
+<td align="left">good <code>zoute</code> drop</td>
+<td align="left">yumm</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="theres-a-horizontal-rule-below-this" class="anchor" href="#theres-a-horizontal-rule-below-this" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>There's a horizontal rule below this.</h3>
+<hr>
+<h3>
+<a id="here-is-an-unordered-list" class="anchor" href="#here-is-an-unordered-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Here is an unordered list:</h3>
+<ul>
+<li>Item foo</li>
+<li>Item bar</li>
+<li>Item baz</li>
+<li>Item zip</li>
+</ul>
+<h3>
+<a id="and-an-ordered-list" class="anchor" href="#and-an-ordered-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>And an ordered list:</h3>
+<ol>
+<li>Item one</li>
+<li>Item two</li>
+<li>Item three</li>
+<li>Item four</li>
+</ol>
+<h3>
+<a id="and-a-nested-list" class="anchor" href="#and-a-nested-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>And a nested list:</h3>
+<ul>
+<li>level 1 item
+<ul>
+<li>level 2 item</li>
+<li>level 2 item
+<ul>
+<li>level 3 item</li>
+<li>level 3 item</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>level 1 item
+<ul>
+<li>level 2 item</li>
+<li>level 2 item</li>
+<li>level 2 item</li>
+</ul>
+</li>
+<li>level 1 item
+<ul>
+<li>level 2 item</li>
+<li>level 2 item</li>
+</ul>
+</li>
+<li>level 1 item</li>
+</ul>
+<h3>
+<a id="small-image" class="anchor" href="#small-image" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Small image</h3>
+<p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png" alt="Octocat"></p>
+<h3>
+<a id="large-image" class="anchor" href="#large-image" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Large image</h3>
+<p><img src="https://guides.github.com/activities/hello-world/branching.png" alt="Branching"></p>
+<h3>
+<a id="definition-lists-can-be-used-with-html-syntax" class="anchor" href="#definition-lists-can-be-used-with-html-syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Definition lists can be used with HTML syntax.</h3>
+<dl>
+<dt>Name</dt>
+<dd>Godzilla</dd>
+<dt>Born</dt>
+<dd>1952</dd>
+<dt>Birthplace</dt>
+<dd>Japan</dd>
+<dt>Color</dt>
+<dd>Green</dd>
+</dl>
+<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre>
+<pre><code>The final element.
+</code></pre>
+<h2>
+<a id="contribution" class="anchor" href="#contribution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contribution</h2>
+<ul>
+<li>Daehyun Kim
+<ul>
+<li>Trading Strategy Structure</li>
+<li>Trading Strategy Algorithm (Linear Regression)</li>
+<li>Backtesting</li>
+</ul>
+</li>
+</ul>
+<h2>
+<a id="reference" class="anchor" href="#reference" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reference</h2>
+<p><a href="https://blog.quantinsti.com/pairs-trading-basics/">https://blog.quantinsti.com/pairs-trading-basics/</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Pairs_trade">https://en.wikipedia.org/wiki/Pairs_trade</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/daehkim/pair-trading">Pair-trading</a> is maintained by <a href="https://github.com/daehkim">daehkim</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
