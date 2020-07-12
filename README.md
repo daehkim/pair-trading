@@ -39,7 +39,7 @@ The KMeans clustering algorithm is a popular clustering methodolgy employed in p
 The elbow for each of the above mentioned score is illustrated below. An average of the elbow from each of these independant metrics was finally used in training the KMeans Algorithm. 
 ![Elbow Plots for KMEANS](https://github.com/daehkim/pair-trading/blob/master/pictures/Kmeans_plots/elbow.PNG)
 
-Therefore, the Kmeans clustering was finally implemented by pre-defining the number of clusters to be 14. The following plot shows a visualization of the clustered datapoints in the form of a T-SNE plot. Again, similar to what was observed with DBSCAN, we notice a slight disproportionality in the size of each cluster, which as mentioned before, can be expected. 
+The following plot shows a visualization of the clustered datapoints in the form of a T-SNE plot. Again, similar to what was observed with DBSCAN, we notice a slight disproportionality in the size of each cluster, which as mentioned before, can be expected. 
 ![Cluster Member counts for DBSCAN](https://github.com/daehkim/pair-trading/blob/master/pictures/Kmeans_plots/T_SNE_kmeans.png)
 
 ## Trading Strategy
