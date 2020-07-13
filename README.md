@@ -253,7 +253,7 @@ The final element.
   - DBSCAN Algorithms for Clustering
   - Cointegration test and Pair Selection
 - Nael Mizanur Rahman
-  -KMeans Clustering analysis and cluster evaluation
+  - KMeans Clustering analysis and cluster evaluation
   
 All members constibuted to the final project report based on their own tasks. 
 
