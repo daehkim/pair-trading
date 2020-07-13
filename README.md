@@ -92,7 +92,7 @@ In this section, we will discuss how we generate the z-score history by stock pa
 Spread = log(a) - nlog(b), where 'a' and 'b' are prices of stocks A and B respectively. The 'n' is the hedge ratio which is constant.
 Calculate 'n' using regression so that spread is as close to 0 as possible. Also, since stocks A and B are cointegrated, the spread tends to converge to 0. To calculate the spread, we used the polynomial linear regression and linear regression with the Kalman filter. The data used to calculate the spread is the history of the stocks' prices for the previous 700 days. 
 
-### Lnear Regression
+### Linear Regression
 
 We used the log of stock A's prices as data points and the log of stock B's prices as a label. We train the model with these datasets. After we generate the model, we predict the log(b) and calculate the spread as:
 
@@ -107,16 +107,7 @@ We also used the degree = 4 for the polynomial linear regression hyperparameter.
 
 ![z-score](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/each_pair_z_score.png)
 
-### Linear Regression with Kalman Filter
-We also used kalman filter as an online linear regression method. The idea is to assume linear relationship between the prices of 
-the related assets. We keep updating the relationship at each step on testing data based on the previous results instead of traditional machine learning approach. 
-At each step we take actions upon excessive deviation from the predicted price and the real price. (We use one standard deviation as threshold from domain experience.) 
-The idea is to assume future convergence of the related stocks' prices. We have included results of some of the stocks. 
-Not all of them are satisfying. Rather some even would suffer significant losses over the testing period. The result from 
-the overall portfolio is not as promising as traditional linear would otherwise provide. This is probably because the traditional model keys in more prior information related to
-the assets' volatility and relationship while the online method assume no such prior. Using a pre-assumed threshold from domain experience would not take in enough intrinsic relationship between the underlying assets which could otherwise provide more insights on the timing of execution.
-
-## Backtesting
+### Backtesting
 
 In this section, we will discuss testing. We apply our trading strategy to the real stock market and check how much we can earn based on our approach. We used the moving windows approach for the testing. For the training data, we used the previous 700 days stock prices. After we train the model with our machine learning algorithm, we calculate the z-score with the generated model and decide whether we will long or short the stocks. The input of backtesting is the z-score history generated in the 'trading strategy' part and the price history. Based on the input, we keep calculating the earning and loss of our stock and inverse. We also track the total asset history and return it as an output of backtesting.
 
@@ -135,6 +126,16 @@ We run the backtesting for all the timeline (2007~2015). Here are all the result
 #### Total assets linear regression
 
 ![total assets](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/total_assets.png)
+
+### Linear Regression with Kalman Filter
+We also used kalman filter as an online linear regression method. The idea is to assume linear relationship between the prices of 
+the related assets. We keep updating the relationship at each step on testing data based on the previous results instead of traditional machine learning approach. 
+At each step we take actions upon excessive deviation from the predicted price and the real price. (We use one standard deviation as threshold from domain experience.) 
+The idea is to assume future convergence of the related stocks' prices. We have included results of some of the stocks. 
+Not all of them are satisfying. Rather some even would suffer significant losses over the testing period. The result from 
+the overall portfolio is not as promising as traditional linear would otherwise provide. This is probably because the traditional model keys in more prior information related to
+the assets' volatility and relationship while the online method assume no such prior. Using a pre-assumed threshold from domain experience would not take in enough intrinsic relationship between the underlying assets which could otherwise provide more insights on the timing of execution.
+
 
 #### Each pair's assets kalman filter
 ![pair 1 result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/43350,82651.png)
