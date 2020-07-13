@@ -26,6 +26,8 @@ Considering that we have more than 2000 features in the imputed dataset (which i
 
 ![Financial ratios](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/varratio.png)
 
+We made sure to choose the number of principal components coming from the price dataset to theone coming from the financial ratios becausewe primarily want to
+rely on the stockprices in order to perform the clustering.
 The resultant reduced datasets are then concatenated to create a 20 dimensional training dataset which we then use for clustering analysis.
 
 ## Clustering Analysis
