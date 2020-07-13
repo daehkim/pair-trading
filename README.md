@@ -31,13 +31,13 @@ We made sure to choose the number of principal components coming from the price 
 rely on the stockprices in order to perform the clustering.
 The resultant reduced datasets are then concatenated to create a 20 dimensional training dataset which we then use for clustering analysis.
 
-## Clustering Analysis
+
 
 
 
 Two clustering algorithms were explored to create clusters of stocks: 
 
-### KMeans Clustering
+## KMeans Clustering
 The KMeans clustering algorithm is a popular clustering methodolgy employed in pair-trading implementeations. The most important aspect of this algorithm is the determination of the number of clusters. This can be ascertained using an elbow-method based cross-validation technique. There are three loss-metrics (or scores) that can be used in the elbow method which are: 
 
 1) Distortion Score: computes the sum of squared distances from each point to its assigned center (smaller is better)
@@ -51,10 +51,10 @@ The following plot shows a visualization of the clustered datapoints in the form
 ![T-SNE plot](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/T-SNE_plot_for_stock_clusters.png)
 ![Cluster Member counts for Kmeans](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/cluster_member_counts.png)
 
-In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the stocks in 4 of the 11 clusters are illustrated below. From a visual perspective, stocks within the same cluster do show a good correlation among them in terms of the behavior of the stock prices.
+In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the stocks in 4 of the 31 clusters are illustrated below. Since some clusters have too many stocks in them to properly visualize, the number of stocks in each time series plot is restricted to 100 for convenience. The  From a visual perspective, stocks within the same cluster do show a good correlation among them in terms of the behavior of the stock prices.
 ![Cluster Member counts for Kmeans](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/time_series.PNG)
 
-### Density-based spatial clustering of applications with Noise (DBSCAN)
+## Density-based spatial clustering of applications with Noise (DBSCAN)
 The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resulted in the formation of 11 clusters. A simple visualization of the cluster in the form of a T-SNE plot is shown below:
 ![T-SNE plot for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/T-SNE_plot_for_stock_clusters.png)
 The following figure shows the number of members in each cluster, demontrating the fact that a huge proportion of the stocks are bunched into a single cluster. 
