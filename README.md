@@ -4,19 +4,33 @@ The primary goal in an investment endeavor is the implementation of strategies t
 
 In such a strategy, identification of correlated stocks and generation of pairs is of paramount importance. In this project, we employ unsupervised learning techniques that include Density-Based Spatial Cluster of Applications with Noise and K-Means Algorithm. Once, the relevant pairs have been identified, their price relations are extrapolated using supervised learning techniques such as Linear Regression. This overall methodology will help provide insight into the relations between various stocks and facilitate the generation of appropriate trading strategies for them.  
 
-## Dataset and Preprocessing
+## Dataset
 
 The datasets are provided by Wharton Research Data Services (WRDS). We mainly obtained the daily stock files from file from CRSP and quarterly fundamentals from Compustats for our purpose. Initially, our dataset consists of stock price files from 3000 stocks which are constituents of Russell 3000. Those stocks' value and size are large enough to restore the whole market value, representing approximately 95% of the total market shares. We performed this pre-screening process to avoid the 'small-cap' trap in the market. Currently, there are more than 6000 active stocks in the U.S. Stock Market but most of them are micro-valued. In reality, investors often cautiously avoid investing in those stocks, since trading, even a small number of shares might have unpredictable effects on their stock prices. We should keep this in mind when doing academic research. We set the sample period from 2010-01-01 to 2015-12-31 for training strategies and use sample period 2016-01-01 to 2019-12-31 for backtesting. 
 
-In our next stage, we want to pre-select eligible stocks that enable us to sail through further steps. First, we removed stocks that were delisted, exchanged, or merged during our sample period since those stocks are no longer tradable. Next, we removed stocks that have negative prices which will be problematic for further analysis. Stocks that are constantly trading at-low-volume also have to be removed since improper trading executions can largely change their stock prices and altered history. Finally, we remove stocks that have more than half missing prices. A similar approach was performed on the financial fundamentals of datasets. In the end, there are 1795 eligible stocks for further analysis. 
+### Data Processing
 
-## Principal Component Analysis and Clustering Analysis
+## Data Preprocessing
 
-### Principal Component Analysis
-Considering the very high number of features within the dataset (which inlcudes both realtime stock data as well as several financial ratios), it is pertienent to use Principal Component Analysis to reduce the dimensionality of the dataset to ease computation. For this methodology, PCA must be performed independantly on the time series stock price data and the financial ratios. It should also be noted that each datapoint in the time searies data is considered to be 1 individal feature. After PCA, the time series data is reduced to 50 principal components and the financial ratios are reduced to 5 principal components. The resultant reduced datasets are then concatenated to create a 55 dimensional training dataset which is then used for clustering.
+In our next stage, we want to pre-select eligible stocks that enable us to sail through further steps. First, we removed stocks that were delisted, exchanged, or merged during our sample period since those stocks are no longer tradable. Next, we removed stocks that have negative prices which will be problematic for further analysis. Stocks that are constantly trading at-low-volume also have to be removed since improper trading executions can largely change their stock prices and altered history. Finally, we remove stocks that have more than half missing prices, so that we have enough available data for imputation. A similar approach was performed on the financial fundamentals of datasets. In the end, there are 1795 eligible stocks for further analysis. 
+
+## Data Imputation
+
+In this step, we imputed the missing values in our preprocessed dataset. We worked with the time series data and the financial ratios separately. We imputed both of them using means, although in a slightly differnt way. For the time series data of stock prices, missing values were replaced by the mean of all the available stock prices for that stock in the training period. Since the financial ratios individually have different bounds we imputed missing values in the financial ratios dataset with the average of all available data for the particular ratio.
+
+### Dimensionality Reduction using Principal Component Analysis
+
+Considering that we have more than 2000 features in the imputed dataset (which inlcudes both realtime stock data as well as several financial ratios), it is pertienent for us to use dimensionality reduction so that we can feasibly run unsupervised learning algorithms in the subsequent steps. It should also be noted that each datapoint in the time searies data is considered to be 1 individal feature. We used Principal Component Analysis (PCA) to reduce the dimensionality while retaining majority of the variance from the dataset. Once again, we performed PCA independantly on the time series stock price data and the financial ratios. After PCA, the time series data is reduced to 15 principal components and the financial ratios are reduced to 5 principal components. We retained more than 99% of the variance in either case. Here are two plots illustrating the proportion of variance captured by the top singular values:
+![Stock prices](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/varprice.png)
+![Financial ratios](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/varratio.png)
+The resultant reduced datasets are then concatenated to create a 20 dimensional training dataset which is then used for clustering analysis.
+
+## Clustering Analysis
+
+
 
 Two clustering algorithms were explored to create clusters of stocks: 
-### Density-based spatial clustering of applications with Noise
+### Density-based spatial clustering of applications with Noise (DBSCAN)
 The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resulted in the formation of 11 clusters. A simple visualization of the cluster in the form of a T-SNE plot is shown below:
 ![T-SNE plot for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/T-SNE_plot_for_stock_clusters.png)
 The following figure shows the number of members in each cluster, demontrating the fact that a huge proportion of the stocks are bunched into a single cluster. This disproportionate distribution of the stocks in clusters is expected to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
