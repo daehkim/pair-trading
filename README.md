@@ -253,13 +253,10 @@ The final element.
   - DBSCAN Algorithms for Clustering
   - Cointegration test and Pair Selection
 - Nael Mizanur Rahman
-  - KMeans Clustering analysis and cluster evaluation
+  - KMeans Clustering Algorithms and Cluster Evaluation
   
 All members constibuted to the final project report based on their own tasks. 
-
 ## Reference
 https://blog.quantinsti.com/pairs-trading-basics/
-
 https://en.wikipedia.org/wiki/Pairs_trade
-
 https://www.quantstart.com/articles/kalman-filter-based-pairs-trading-strategy-in-qstrader/
