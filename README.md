@@ -36,14 +36,6 @@ The resultant reduced datasets are then concatenated to create a 20 dimensional 
 
 
 Two clustering algorithms were explored to create clusters of stocks: 
-### Density-based spatial clustering of applications with Noise (DBSCAN)
-The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resulted in the formation of 11 clusters. A simple visualization of the cluster in the form of a T-SNE plot is shown below:
-![T-SNE plot for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/T-SNE_plot_for_stock_clusters.png)
-The following figure shows the number of members in each cluster, demontrating the fact that a huge proportion of the stocks are bunched into a single cluster. This disproportionate distribution of the stocks in clusters is expected to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
-![Cluster Member counts for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/cluster_member_counts.png)
-
-In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the stocks in 4 of the 11 clusters are illustrated below. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices. 
-![Stock price in each cluster](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/combined_time_Series.png)
 
 ### KMeans Clustering
 The KMeans clustering algorithm is a popular clustering methodolgy employed in pair-trading implementeations. The most important aspect of this algorithm is the determination of the number of clusters. This can be ascertained using an elbow-method based cross-validation technique. There are three loss-metrics (or scores) that can be used in the elbow method which are: 
@@ -52,11 +44,22 @@ The KMeans clustering algorithm is a popular clustering methodolgy employed in p
 2) Silhouette Score:
 3) Calinski Harabz Score:
 
-The elbow for each of the above mentioned score is illustrated below. An average of the elbow from each of these independant metrics was finally used in training the KMeans Algorithm. 
+Once implemented on the normalized dataset, the elbow for each of the above mentioned score is illustrated below. The maximum cluster number from each of these independant metrics was finally used in training the KMeans Algorithm. In this case, the max cluster elbow among the three was 31 which is what was finally chosen as the number of clusters in the training. 
 ![Elbow Plots for KMEANS](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/elbow.PNG)
 
-The following plot shows a visualization of the clustered datapoints in the form of a T-SNE plot. Again, similar to what was observed with DBSCAN, we notice a slight disproportionality in the size of each cluster, which as mentioned before, can be expected. 
-![Cluster Member counts for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/T_SNE_kmeans.png)
+The following plot shows a visualization of the clustered datapoints in the form of a T-SNE plot. We notice a slight disproportionality in the size of each cluster. This disproportionate distribution of the stocks in clusters is expected to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
+![Cluster Member counts for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/T_SNE_plot_for_stock_clusters.PNG)
+
+### Density-based spatial clustering of applications with Noise (DBSCAN)
+The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resulted in the formation of 11 clusters. A simple visualization of the cluster in the form of a T-SNE plot is shown below:
+![T-SNE plot for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/T-SNE_plot_for_stock_clusters.png)
+The following figure shows the number of members in each cluster, demontrating the fact that a huge proportion of the stocks are bunched into a single cluster. 
+![Cluster Member counts for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/cluster_member_counts.png)
+
+In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the stocks in 4 of the 11 clusters are illustrated below. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices. 
+![Stock price in each cluster](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/combined_time_Series.png)
+
+
 ### Pair selection
 The key of finding valid pairs is to find the cointegration of two selecting stocks. As we will go in detail later, we want to find two stocks that their time series of prices follows a linear relationship but not always. The spread of two selecting stocks should be a mean-reverting process, meaning that their spread tends to drift towards its mean function over time. The Ornstein–Uhlenbeck process is a mean-reverting process that commonly used in the field of financial mathematics. Here in our project, we also take the idea of O-U process to compute the spread and model the relation of stocks. 
 
