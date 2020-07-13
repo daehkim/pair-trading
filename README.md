@@ -40,14 +40,14 @@ Two clustering algorithms were explored to create clusters of stocks:
 ### KMeans Clustering
 The KMeans clustering algorithm is a popular clustering methodolgy employed in pair-trading implementeations. The most important aspect of this algorithm is the determination of the number of clusters. This can be ascertained using an elbow-method based cross-validation technique. There are three loss-metrics (or scores) that can be used in the elbow method which are: 
 
-1) Distortion Score:
-2) Silhouette Score:
-3) Calinski Harabz Score:
+1) Distortion Score: computes the sum of squared distances from each point to its assigned center (smaller is better)
+2) Silhouette Score: calculates the mean Silhouette Coefficient of all samples (smaller is better)
+3) Calinski Harabz Score: copmutes the ratio of dispersion between clusters to dispersion within clusters (larger is better)
 
-Once implemented on the normalized dataset, the elbow for each of the above mentioned score is illustrated below. The maximum cluster number from each of these independant metrics was finally used in training the KMeans Algorithm. In this case, the max cluster elbow among the three was 31 which is what was finally chosen as the number of clusters in the training. 
+The dataset is first normalized before the elbow analysis is carried out for each of the scores mentioned above, the results of which are shown below. The elbow for each of the analyses are also indicated. It should be noted that the elbow is determined using a built-in “knee point detection algorithm”. The maximum cluster number from each of these independant metrics was finally used in training the KMeans Algorithm. In this case, the max cluster elbow among the three was 31 which is what was finally chosen as the number of clusters in the training. 
 ![Elbow Plots for KMEANS](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/elbow.PNG)
 
-The following plot shows a visualization of the clustered datapoints in the form of a T-SNE plot. The number of stocks in each cluster is also illustrated below. We notice a slight disproportionality in the size of each cluster. This disproportionate distribution of the stocks in clusters is expected to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
+The following plot shows a visualization of the clustered datapoints in the form of a t-Distributed Stochastic Neighbor Embedding (t-SNE) plot. t-SNE is a non-linear dimensionality reduction algorithm used for mapping multi-dimensional data to two or more dimensions that makes it easier to visualize the clusters. The number of stocks in each cluster is also illustrated below. We notice a slight disproportionality in the size of each cluster. This disproportionate distribution of the stocks in clusters is expected to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
 ![T-SNE plot](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/T-SNE_plot_for_stock_clusters.png)
 ![Cluster Member counts for Kmeans](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/cluster_member_counts.png)
 
