@@ -256,6 +256,7 @@ The final element.
   - KMeans Clustering Algorithms and Cluster Evaluation
   
 All members constibuted to the final project report based on their own tasks. 
+
 ## Reference
 https://blog.quantinsti.com/pairs-trading-basics/
 https://en.wikipedia.org/wiki/Pairs_trade
