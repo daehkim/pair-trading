@@ -252,7 +252,9 @@ The final element.
   - Data Collection and Preprocessing
   - DBSCAN Algorithms for Clustering
   - Cointegration test and Pair Selection
-
+ -Nael Mizanur Rahman
+  -KMeans Clustering analysis and cluster evaluation
+All members constibuted to the final project report based on their own tasks. 
 ## Reference
 https://blog.quantinsti.com/pairs-trading-basics/
 https://en.wikipedia.org/wiki/Pairs_trade
