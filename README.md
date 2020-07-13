@@ -48,7 +48,10 @@ Once implemented on the normalized dataset, the elbow for each of the above ment
 ![Elbow Plots for KMEANS](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/elbow.PNG)
 
 The following plot shows a visualization of the clustered datapoints in the form of a T-SNE plot. We notice a slight disproportionality in the size of each cluster. This disproportionate distribution of the stocks in clusters is expected to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
-![Cluster Member counts for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/T_SNE_plot_for_stock_clusters.PNG)
+![Cluster Member counts for Kmeans](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/T-SNE_plot_for_stock_clusters.png)
+
+In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the stocks in 4 of the 11 clusters are illustrated below. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices.
+![Cluster Member counts for Kmeans](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/time_series.PNG)
 
 ### Density-based spatial clustering of applications with Noise (DBSCAN)
 The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resulted in the formation of 11 clusters. A simple visualization of the cluster in the form of a T-SNE plot is shown below:
@@ -56,7 +59,7 @@ The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resul
 The following figure shows the number of members in each cluster, demontrating the fact that a huge proportion of the stocks are bunched into a single cluster. 
 ![Cluster Member counts for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/cluster_member_counts.png)
 
-In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the stocks in 4 of the 11 clusters are illustrated below. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices. 
+Once more, we plot a few of the time series data points of stocks within the same cluster for confidence. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices. 
 ![Stock price in each cluster](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/combined_time_Series.png)
 
 
