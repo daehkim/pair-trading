@@ -255,7 +255,7 @@ The final element.
 - Nael Mizanur Rahman
   - KMeans Clustering Algorithms and Cluster Evaluation
   
-All members constibuted to the final project report based on their own tasks. 
+All members constibuted to the final project report.
 
 ## Reference
 https://blog.quantinsti.com/pairs-trading-basics/
