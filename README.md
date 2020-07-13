@@ -44,20 +44,25 @@ The KMeans clustering algorithm is a popular clustering methodolgy employed in p
 2) Silhouette Score: calculates the mean Silhouette Coefficient of all samples (smaller is better)
 3) Calinski Harabz Score: copmutes the ratio of dispersion between clusters to dispersion within clusters (larger is better)
 
-The dataset is first normalized before the elbow analysis is carried out for each of the scores mentioned above, the results of which are shown below. The elbow for each of the analyses are also indicated. It should be noted that the elbow is determined using a built-in “knee point detection algorithm”. The maximum cluster number from each of these independant metrics was finally used in training the KMeans Algorithm. In this case, the max cluster elbow among the three was 31 which is what was finally chosen as the number of clusters in the training. 
+The dataset is first normalized before the elbow analysis is carried out for each of the scores mentioned above, the results of which are shown below. The elbow for each of the analyses are also indicated. It should be noted that the elbow is determined using a built-in “knee point detection algorithm”. This algorithm sometimes converges on a local minima/maxima giving erroneous elbows, as is evident from the Calinski Harabz Score where the global maxima is approximately 30. The maximum cluster number from each of these independant metrics was finally used in training the KMeans Algorithm. In this case, the max cluster elbow among the three was 31 which is what was finally chosen as the number of clusters in the training. Choosing a max among the three is based on the intention of making each cluster as small and isolated as possible.
 ![Elbow Plots for KMEANS](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/elbow.PNG)
 
-The following plot shows a visualization of the clustered datapoints in the form of a t-Distributed Stochastic Neighbor Embedding (t-SNE) plot. t-SNE is a non-linear dimensionality reduction algorithm used for mapping multi-dimensional data to two or more dimensions that makes it easier to visualize the clusters. The number of stocks in each cluster is also illustrated below. We notice a slight disproportionality in the size of each cluster. This disproportionate distribution of the stocks in clusters is expected to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
+The following plot shows a visualization of the clustered datapoints in the form of a t-Distributed Stochastic Neighbor Embedding (t-SNE) plot. t-SNE is a non-linear dimensionality reduction algorithm used for mapping multi-dimensional data to two or more dimensions that makes it easier to visualize the clusters. The number of stocks in each cluster is also illustrated below. We notice a slight disproportionality in the size of each cluster. This disproportionate distribution of the stocks in clusters is expected, to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
+
 ![T-SNE plot](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/T-SNE_plot_for_stock_clusters.png)
 ![Cluster Member counts for Kmeans](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/cluster_member_counts.png)
 
 In order to increase confidence in the clustering procedure, the real time series stock price data of the stocks in each cluster were also investigated. The time series data of the stocks in 4 of the 31 clusters are illustrated below. Since some clusters have too many stocks in them to properly visualize, the number of stocks in each time series plot is restricted to 100 for convenience. The  From a visual perspective, stocks within the same cluster do show a good correlation among them in terms of the behavior of the stock prices.
+
 ![Cluster Member counts for Kmeans](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/time_series.PNG)
 
 ## Density-based spatial clustering of applications with Noise (DBSCAN)
 The DBSCAN algorithm was paramterized by eps = 1.8 and minPoints = 3 which resulted in the formation of 11 clusters. A simple visualization of the cluster in the form of a T-SNE plot is shown below:
+
 ![T-SNE plot for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/T-SNE_plot_for_stock_clusters.png)
-The following figure shows the number of members in each cluster, demontrating the fact that a huge proportion of the stocks are bunched into a single cluster. 
+
+The following figure shows the number of members in each cluster, demontrating the fact that a huge proportion of the stocks are bunched into a single cluster.
+
 ![Cluster Member counts for DBSCAN](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/DBSCAN_plots/cluster_member_counts.png)
 
 Once more, we plot a few of the time series data points of stocks within the same cluster for confidence. From a visual perspective, stocks within the same cluster do show a realtively high correlation among them in terms of the behavior of the stock prices. 
