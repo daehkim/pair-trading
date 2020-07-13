@@ -45,7 +45,7 @@ To find such pairs, we performed ADF test (or Augmented Dicky Fuller Test) to ev
 Take WDFC and HSIC as an example. The relationship of their stock price over time is illustrated below. 
 ![Stock Price Relation for WDFC and HSIC](https://github.com/daehkim/pair-trading/blob/master/pictures/WDFC_HSIC.png)
 We performed ADF test to their spread as we defined in next section and plot the process of their spread.
-![Spread of WDFC and HSIC](https://github.com/daehkim/pair-trading/blob/master/pictures/spread_wdfc_hsic.png)
+![Spread of WDFC and HSIC]()
 The ADF test gives p-value as the result. For this pair, the p-value is 2.8702051939237176e-05, less than significant level 0.05 (as we set). Thus, we are over 95% confident to say that the spread of WDFC and HSIC's stock price is stationary. 
 
 We performed such testto all pairs in each cluster and select at least one pair from each cluster to diversity our portfolio. Then, a strategy that observed based on the movement of the spread can be designed and executed well. 
