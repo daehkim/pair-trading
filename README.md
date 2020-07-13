@@ -95,7 +95,20 @@ We also used the degree = 4 for the polynomial linear regression hyperparameter.
 ![z-score](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/each_pair_z_score.png)
 
 ### Linear Regression with Kalman Filter
-(Zhenyu Jia)
+We also used kalman filter as an online linear regression method. The idea is to assume linear relationship between the prices of 
+the related assets. We keep updating the relationship at each step on testing data based on the previous results instead of traditional machine learning approach. 
+At each step we take actions upon excessive deviation from the predicted price and the real price. (We use one standard deviation as threshold from domain experience.) 
+The idea is to assume future convergence of the related stocks' prices. We have included results of some of the stocks. 
+Not all of them are satisfying. Rather some even would suffer significant losses over the testing period. The result from 
+the overall portfolio is not as promising as traditional linear would otherwise provide. This is probably because the traditional model keys in more prior information related to
+the assets' volatility and relationship while the online method assume no such prior. Using a pre-assumed threshold from domain experience would not take in enough intrinsic relationship between the underlying assets which could otherwise provide more insights on the timing of execution.
+
+![pair 1 result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/43350,82651.png)
+![pair 2 result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/44644,90458.png)
+![pair 3 result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/60186,81095.png)
+![portfolio result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/portfolio.png)
+
+
 
 ## Backtesting
 
