@@ -79,7 +79,7 @@ Take WDFC and HSIC as an example. The relationship of their stock price over tim
 ![Stock Price Relation for WDFC and HSIC](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/WDFC_HSIC.png)
 
 We performed ADF test to their spread as we defined in next section and plot the time series process of their spread.
-![Spread of WDFC and HSIC](https://github.com/daehkim/pair-trading/blob/master/pictures/spread_wdfc_hsic.png)
+![Spread of WDFC and HSIC](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/spread_wdfc_hsic.png)
 
 The ADF test gives p-value as the result. For this pair, the p-value is 2.8702051939237176e-05, which is less than significant level 0.05 (as we set). Thus, we are over 95% confident to say that the spread of WDFC and HSIC's stock price is stationary and they are valid pair. 
 
@@ -258,6 +258,7 @@ The final element.
   - Data Collection and Preprocessing
   - DBSCAN Algorithms for Clustering
   - Cointegration test and Pair Selection
+  - Performance Metrics
 - Nael Mizanur Rahman
   - KMeans Clustering Algorithms and Cluster Evaluation
   
