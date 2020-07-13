@@ -40,12 +40,16 @@ The following plot shows a visualization of the clustered datapoints in the form
 ### Pair selection
 The key of finding valid pairs is to find the cointegration of two selecting stocks. As we will go in detail later, we want to find two stocks that their time series of prices follows a linear relationship but not always. The spread of two selecting stocks should be a mean-reverting process, meaning that their spread tends to drift towards its mean function over time. The Ornstein–Uhlenbeck process is a mean-reverting process that commonly used in the field of financial mathematics. Here in our project, we also take the idea of O-U process to compute the spread and model the relation of stocks. 
 
-To find such pairs, we performed ADF test to every pairs in each clusters to find cointegrated pairs. ADF test is usually used in time series analysis. In this case, ADF test helps us determine whether the spread of two stocks is stationary or not. A stationary process is very valuable to model Pairs Trading strategies. For instance, in this case, if the spread is stationary, we know that the difference in their stock process will drift to the mean (which is zero in our case) over time if it is temporarily derailed, and this is the time window for us to make money. 
+To find such pairs, we performed ADF test (or Augmented Dicky Fuller Test) to every pairs in each clusters to find cointegrated pairs. ADF test is usually used in time series analysis. In this case, ADF test helps us determine whether the spread of two stocks is stationary or not. A stationary process is very valuable to model Pairs Trading strategies. For instance, in this case, if the spread is stationary, we know that the difference in their stock process will drift to the mean (which is zero in our case) over time if it is temporarily derailed, and this is the time window for us to make money. 
 
 Take WDFC and HSIC as an example. The relationship of their stock price over time is illustrated below. 
-![Stock Price Relation for WDFC and HSIC]()
-We performed ADF test to their spread as define in next section and plot the process of their spread.
-![Spread of WDFC and HSIC]()
+![Stock Price Relation for WDFC and HSIC](https://github.com/daehkim/pair-trading/blob/master/pictures/WDFC_HSIC.png)
+We performed ADF test to their spread as we defined in next section and plot the process of their spread.
+![Spread of WDFC and HSIC](https://github.com/daehkim/pair-trading/blob/master/pictures/spread_wdfc_hsic.png)
+The ADF test gives p-value as the result. For this pair, the p-value is 2.8702051939237176e-05, less than significant level 0.05 (as we set). Thus, we are over 95% confident to say that the spread of WDFC and HSIC's stock price is stationary. 
+
+We performed such testto all pairs in each cluster and select at least one pair from each cluster to diversity our portfolio. Then, a strategy that observed based on the movement of the spread can be designed and executed well. 
+
 
 ## Trading Strategy
 
