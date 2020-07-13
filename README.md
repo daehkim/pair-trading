@@ -21,9 +21,12 @@ In this step, we imputed the missing values in our preprocessed dataset. We work
 ### Dimensionality Reduction using Principal Component Analysis
 
 Considering that we have more than 2000 features in the imputed dataset (which inlcudes both realtime stock data as well as several financial ratios), it is pertienent for us to use dimensionality reduction so that we can feasibly run unsupervised learning algorithms in the subsequent steps. It should also be noted that each datapoint in the time searies data is considered to be 1 individal feature. We used Principal Component Analysis (PCA) to reduce the dimensionality while retaining majority of the variance from the dataset. Once again, we performed PCA independantly on the time series stock price data and the financial ratios. After PCA, the time series data is reduced to 15 principal components and the financial ratios are reduced to 5 principal components. We retained more than 99% of the variance in either case. Here are two plots illustrating the proportion of variance captured by the top singular values:
+
 ![Stock prices](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/varprice.png)
+
 ![Financial ratios](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/varratio.png)
-The resultant reduced datasets are then concatenated to create a 20 dimensional training dataset which is then used for clustering analysis.
+
+The resultant reduced datasets are then concatenated to create a 20 dimensional training dataset which we then use for clustering analysis.
 
 ## Clustering Analysis
 
