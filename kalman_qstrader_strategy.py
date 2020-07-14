@@ -9,6 +9,10 @@ from qstrader.event import (SignalEvent, EventType)
 from qstrader.strategy.base import AbstractStrategy
 
 
+factorA = 1.5
+factorC = 1.1
+
+
 class KalmanPairsTradingStrategy(AbstractStrategy):
     """
     Requires:
@@ -25,7 +29,7 @@ class KalmanPairsTradingStrategy(AbstractStrategy):
         self.events_queue = events_queue
         self.time = None
         self.days = 0
-        self.investment_per_pair = initial_investment / 1.0 / self.num_pairs
+        self.investment_per_pair = initial_investment / 1.0 / self.num_pairs /2.0
         # print(self.investment_per_pair)
         self.trader_data = [{
             'latest_prices': np.array([-1.0, -1.0]),
@@ -70,76 +74,80 @@ class KalmanPairsTradingStrategy(AbstractStrategy):
         if event.type == EventType.BAR:
             self._set_correct_time_and_price(event)
 
-            pair_idx = -1
+            idx = self.tickers.index(event.ticker)
+            pair_idx = idx // 2
 
             # Only trade if we have both observations
-            for data in self.trader_data:
-                pair_idx += 1
-                if not all(data['latest_prices'] > -1.0):
-                    continue
-                F = np.asarray([data['latest_prices'][0], 1.0]).reshape((1, 2))
-                y = data['latest_prices'][1]
-                if data['R'] is not None:
-                    data['R'] = data['C'] + data['wt']
-                else:
-                    data['R'] = np.zeros((2, 2))
-                yhat = F.dot(data['theta'])
-                et = y - yhat
-                Qt = F.dot(data['R']).dot(F.T) + data['vt']
-                sqrt_Qt = np.sqrt(Qt)
-                At = data['R'].dot(F.T) / Qt
-                data['theta'] = data['theta'] + At.flatten() * et
-                data['C'] = data['R'] - At * F.dot(data['R'])
+            data = self.trader_data[pair_idx]
+            if not all(data['latest_prices'] > -1.0):
+                return
+            F = np.asarray([data['latest_prices'][0], 1.0]).reshape((1, 2))
+            y = data['latest_prices'][1]
+            if data['R'] is not None:
+                data['R'] = data['C'] + data['wt']
+            else:
+                data['R'] = np.zeros((2, 2))
+            yhat = F.dot(data['theta'])
+            et = y - yhat
+            Qt = F.dot(data['R']).dot(F.T) + data['vt']
+            sqrt_Qt = np.sqrt(Qt)
+            At = data['R'].dot(F.T) / Qt
+            data['theta'] = data['theta'] + At.flatten() * et
+            data['C'] = data['R'] - At * F.dot(data['R'])
 
-                if self.days > 1:
-                    # If we're not in the market...
-                    if data['invested'] is None:
-                        if et < -sqrt_Qt:
-                            # Long Entry
-                            # print("LONG: %s" % event.time)
-                            data['qty'] = floor(self.investment_per_pair / data['latest_prices'][1])
-                            data['cur_hedge_qty'] = floor(self.investment_per_pair / data['latest_prices'][0])
-                            # data['cur_hedge_qty'] = int(
-                            #     floor(data['qty'] * data['theta'][0]))
-                            self.events_queue.put(
-                                SignalEvent(self.tickers[pair_idx*2+1], "BOT",
-                                            data['qty']))
-                            self.events_queue.put(
-                                SignalEvent(self.tickers[pair_idx*2], "SLD",
-                                            data['cur_hedge_qty']))
-                            data['invested'] = "long"
-                        elif et > sqrt_Qt:
-                            # Short Entry
-                            # print("SHORT: %s" % event.time)
-                            data['qty'] = floor(self.investment_per_pair / data['latest_prices'][1])
-                            data['cur_hedge_qty'] = floor(self.investment_per_pair / data['latest_prices'][0])
-                            # data['cur_hedge_qty'] = int(floor(data['qty'] * data['theta'][0]))
-                            # self.cur_hedge_qty = int(
-                            #     floor(self.qty * self.theta[0]))
-                            self.events_queue.put(
-                                SignalEvent(self.tickers[pair_idx*2+1], "SLD",
-                                            data['qty']))
-                            self.events_queue.put(
-                                SignalEvent(self.tickers[pair_idx*2], "BOT",
-                                            data['cur_hedge_qty']))
-                            data['invested'] = "short"
-                    # If we are in the market...
-                    if data['invested'] is not None:
-                        if data['invested'] == 'long' and et > -sqrt_Qt:
-                            # print("CLOSING LONG: %s" % event.time)
-                            self.events_queue.put(
-                                SignalEvent(self.tickers[pair_idx*2+1], "SLD",
-                                            data['qty']))
-                            self.events_queue.put(
-                                SignalEvent(self.tickers[pair_idx*2], "BOT",
-                                            data['cur_hedge_qty']))
-                            data['invested'] = None
-                        elif data['invested'] == "short" and et < sqrt_Qt:
-                            # print("CLOSING SHORT: %s" % event.time)
-                            self.events_queue.put(
-                                SignalEvent(self.tickers[pair_idx*2+1], "BOT",
-                                            data['qty']))
-                            self.events_queue.put(
-                                SignalEvent(self.tickers[pair_idx*2], "SLD",
-                                            data['cur_hedge_qty']))
-                            data['invested'] = None
+            investment_per_pair = self.investment_per_pair
+            # if pair_idx == self.num_pairs - 1:
+            #     investment_per_pair *= 0
+            #     continue
+            if self.days > 1:
+                # If we're not in the market...
+                if data['invested'] is None:
+                    if et < -factorA*sqrt_Qt:
+                        # Long Entry
+                        # print("LONG: %s" % event.time)
+                        data['qty'] = floor(investment_per_pair / data['latest_prices'][1])
+                        data['cur_hedge_qty'] = floor(investment_per_pair / data['latest_prices'][0])
+                        # data['cur_hedge_qty'] = int(
+                        #     floor(data['qty'] * data['theta'][0]))
+                        self.events_queue.put(
+                            SignalEvent(self.tickers[pair_idx*2+1], "BOT",
+                                        data['qty']))
+                        self.events_queue.put(
+                            SignalEvent(self.tickers[pair_idx*2], "SLD",
+                                        data['cur_hedge_qty']))
+                        data['invested'] = "long"
+                    elif et > factorA*sqrt_Qt:
+                        # Short Entry
+                        # print("SHORT: %s" % event.time)
+                        data['qty'] = floor(investment_per_pair / data['latest_prices'][1])
+                        data['cur_hedge_qty'] = floor(investment_per_pair / data['latest_prices'][0])
+                        # data['cur_hedge_qty'] = int(floor(data['qty'] * data['theta'][0]))
+                        # self.cur_hedge_qty = int(
+                        #     floor(self.qty * self.theta[0]))
+                        self.events_queue.put(
+                            SignalEvent(self.tickers[pair_idx*2+1], "SLD",
+                                        data['qty']))
+                        self.events_queue.put(
+                            SignalEvent(self.tickers[pair_idx*2], "BOT",
+                                        data['cur_hedge_qty']))
+                        data['invested'] = "short"
+                # If we are in the market...
+                if data['invested'] is not None:
+                    if data['invested'] == 'long' and et > -factorC*sqrt_Qt:
+                        # print("CLOSING LONG: %s" % event.time)
+                        self.events_queue.put(
+                            SignalEvent(self.tickers[pair_idx*2+1], "SLD",
+                                        data['qty']))
+                        self.events_queue.put(
+                            SignalEvent(self.tickers[pair_idx*2], "BOT",
+                                        data['cur_hedge_qty']))
+                        data['invested'] = None
+                    elif data['invested'] == "short" and et < factorC*sqrt_Qt:
+                        # print("CLOSING SHORT: %s" % event.time)
+                        self.events_queue.put(
+                            SignalEvent(self.tickers[pair_idx*2+1], "BOT",
+                                        data['qty']))
+                        self.events_queue.put(
+                            SignalEvent(self.tickers[pair_idx*2], "SLD",
+                                        data['cur_hedge_qty']))
+                        data['invested'] = None

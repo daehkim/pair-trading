@@ -65,7 +65,10 @@ def run(config, testing, tickers, filename):
         statistics, initial_equity
     )
     results = backtest.simulate_trading(testing=testing)
-    statistics.save(filename)
+    hist = results['cum_returns']
+    print('==:++==')
+    print(hist.to_csv('6pair.csv', header=['date,total asset']))
+    statistics.save('output')
     return results
 
 
@@ -79,8 +82,10 @@ def main():
     testing=False
 
     tickers = ['43350', '82651', '44644', '90458',
-               '24969', '24985', '42585', '83621',
-               '60186', '81095', '16548', '81577']
+               '24969', '24985',  '42585', '83621', '60186', '81095',
+               '16548', '81577']
+    # tickers = [,]
+    # tickers =           []
     # pair = pair_list[1]
     # print(pair)
     # tickers = pair.split(",")
