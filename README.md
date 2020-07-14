@@ -261,6 +261,9 @@ The final element.
   - Performance Metrics
 - Nael Mizanur Rahman
   - KMeans Clustering Algorithms and Cluster Evaluation
+- Sudipta Kolay
+  - Data Imputation
+  - Dimensionality Reduction using Principal Component Analysis
   
 All members constibuted to the final project report.
 
