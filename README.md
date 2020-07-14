@@ -45,6 +45,7 @@ The KMeans clustering algorithm is a popular clustering methodolgy employed in p
 3) Calinski Harabz Score: copmutes the ratio of dispersion between clusters to dispersion within clusters (larger is better)
 
 The dataset is first normalized before the elbow analysis is carried out for each of the scores mentioned above, the results of which are shown below. The elbow for each of the analyses are also indicated. It should be noted that the elbow is determined using a built-in “knee point detection algorithm”. This algorithm sometimes converges on a local minima/maxima giving erroneous elbows, as is evident from the Calinski Harabz Score where the global maxima is approximately 30. The maximum cluster number from each of these independant metrics was finally used in training the KMeans Algorithm. In this case, the max cluster elbow among the three was 31 which is what was finally chosen as the number of clusters in the training. Choosing a max among the three is based on the intention of making each cluster as small and isolated as possible.
+
 ![Elbow Plots for KMEANS](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/elbow.PNG)
 
 The following plot shows a visualization of the clustered datapoints in the form of a t-Distributed Stochastic Neighbor Embedding (t-SNE) plot. t-SNE is a non-linear dimensionality reduction algorithm used for mapping multi-dimensional data to two or more dimensions that makes it easier to visualize the clusters. The number of stocks in each cluster is also illustrated below. We notice a slight disproportionality in the size of each cluster. This disproportionate distribution of the stocks in clusters is expected, to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.
@@ -182,7 +183,7 @@ paired assets and it, therefore, has more advantage in handling rapidly changing
   - Cointegration test and Pair Selection
   - Performance Metrics
 - Nael Mizanur Rahman
-  - KMeans Clustering Algorithms and Cluster Evaluation
+  - KMeans Clustering Algorithms, Cluster Evaluation and Cluster visualization
 - Sudipta Kolay
   - Data Imputation
   - Dimensionality Reduction using Principal Component Analysis
