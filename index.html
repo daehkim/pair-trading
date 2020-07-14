@@ -117,13 +117,12 @@ We also used the degree = 4 for the polynomial linear regression hyperparameter.
 <p><img src="https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/total_assets.png" alt="total assets"></p>
 <h3>
 <a id="linear-regression-with-kalman-filter" class="anchor" href="#linear-regression-with-kalman-filter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Linear Regression with Kalman Filter</h3>
-<p>We also used kalman filter as an online linear regression method. The idea is to assume linear relationship between the prices of
+<p>We also used Kalman filter as an online linear regression method. (We used qstrader platform for backtesting and implementation)The idea is to assume linear relationship between the prices of
 the related assets. We keep updating the relationship at each step on testing data based on the previous results instead of traditional machine learning approach.
-At each step we take actions upon excessive deviation from the predicted price and the real price. (We use one standard deviation as threshold from domain experience.)
-The idea is to assume future convergence of the related stocks' prices. We have included results of some of the stocks.
-Not all of them are satisfying. Rather some even would suffer significant losses over the testing period. The result from
-the overall portfolio is not as promising as traditional linear would otherwise provide. This is probably because the traditional model keys in more prior information related to
-the assets' volatility and relationship while the online method assume no such prior. Using a pre-assumed threshold from domain experience would not take in enough intrinsic relationship between the underlying assets which could otherwise provide more insights on the timing of execution.</p>
+At each step we take actions upon excessive deviation from the predicted price and the real price.
+The idea is to assume future convergence of the related stocks' prices. Included below are results of some of the pairs.
+Not all of them are satisfying and, rather, some even would suffer significant losses over the testing period. The portfolio as whole, however, has decent performance.
+We searched through possible action threshold pairs to find the optimal performance upon testing.</p>
 <h4>
 <a id="each-pairs-assets-kalman-filter" class="anchor" href="#each-pairs-assets-kalman-filter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Each pair's assets kalman filter</h4>
 <p><img src="https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/43350,82651.png" alt="pair 1 result">
@@ -176,6 +175,10 @@ the assets' volatility and relationship while the online method assume no such p
 </tr>
 </tbody>
 </table>
+<p>Linear regression has better alpha performance than Kalman 20% vs 6.374%. Kalman however has a much lower risk compared
+to linear regression and it also has a relatively satisfying earning performance. Linear regression uses previous information and therefore it is more capable at catching
+market momentum. Kalman, on the other hand, uses no prior information but the dynamics of current market momentum. It keeps updating and estimating the intrinsic relationship between
+paired assets and it, therefore, has more advantage in handling rapidly changing market environment.</p>
 <h2>
 <a id="contribution" class="anchor" href="#contribution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contribution</h2>
 <ul>
@@ -203,6 +206,11 @@ the assets' volatility and relationship while the online method assume no such p
 <ul>
 <li>Data Imputation</li>
 <li>Dimensionality Reduction using Principal Component Analysis</li>
+</ul>
+</li>
+<li>Zhenyu Jia
+<ul>
+<li>Kalman filter strategy implementation and backtesting</li>
 </ul>
 </li>
 </ul>
