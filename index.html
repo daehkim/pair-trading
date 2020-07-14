@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Pair-trading by daehkim</title>
+    <title>Pair Trading with Machine Learning by daehkim</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -11,7 +11,7 @@
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">Pair-trading</h1>
+      <h1 class="project-name">Pair Trading with Machine Learning</h1>
       <h2 class="project-tagline">Xin Yi, Daehyun Kim, Mizanur Rahman Nael, Sudipta Kolay, Zhenyu Jia</h2>
       <a href="https://github.com/daehkim/pair-trading" class="btn">View on GitHub</a>
       <a href="https://github.com/daehkim/pair-trading/zipball/master" class="btn">Download .zip</a>
@@ -51,8 +51,8 @@ The resultant reduced datasets are then concatenated to create a 20 dimensional 
 <li>Silhouette Score: calculates the mean Silhouette Coefficient of all samples (smaller is better)</li>
 <li>Calinski Harabz Score: copmutes the ratio of dispersion between clusters to dispersion within clusters (larger is better)</li>
 </ol>
-<p>The dataset is first normalized before the elbow analysis is carried out for each of the scores mentioned above, the results of which are shown below. The elbow for each of the analyses are also indicated. It should be noted that the elbow is determined using a built-in “knee point detection algorithm”. This algorithm sometimes converges on a local minima/maxima giving erroneous elbows, as is evident from the Calinski Harabz Score where the global maxima is approximately 30. The maximum cluster number from each of these independant metrics was finally used in training the KMeans Algorithm. In this case, the max cluster elbow among the three was 31 which is what was finally chosen as the number of clusters in the training. Choosing a max among the three is based on the intention of making each cluster as small and isolated as possible.
-<img src="https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/elbow.PNG" alt="Elbow Plots for KMEANS"></p>
+<p>The dataset is first normalized before the elbow analysis is carried out for each of the scores mentioned above, the results of which are shown below. The elbow for each of the analyses are also indicated. It should be noted that the elbow is determined using a built-in “knee point detection algorithm”. This algorithm sometimes converges on a local minima/maxima giving erroneous elbows, as is evident from the Calinski Harabz Score where the global maxima is approximately 30. The maximum cluster number from each of these independant metrics was finally used in training the KMeans Algorithm. In this case, the max cluster elbow among the three was 31 which is what was finally chosen as the number of clusters in the training. Choosing a max among the three is based on the intention of making each cluster as small and isolated as possible.</p>
+<p><img src="https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/elbow.PNG" alt="Elbow Plots for KMEANS"></p>
 <p>The following plot shows a visualization of the clustered datapoints in the form of a t-Distributed Stochastic Neighbor Embedding (t-SNE) plot. t-SNE is a non-linear dimensionality reduction algorithm used for mapping multi-dimensional data to two or more dimensions that makes it easier to visualize the clusters. The number of stocks in each cluster is also illustrated below. We notice a slight disproportionality in the size of each cluster. This disproportionate distribution of the stocks in clusters is expected, to some extent, since the dataset is possibly dominated by stocks from a single or closely related industries.</p>
 <p><img src="https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/T-SNE_plot_for_stock_clusters.png" alt="T-SNE plot">
 <img src="https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/Kmeans_plots/cluster_member_counts.png" alt="Cluster Member counts for Kmeans"></p>
@@ -199,7 +199,7 @@ paired assets and it, therefore, has more advantage in handling rapidly changing
 </li>
 <li>Nael Mizanur Rahman
 <ul>
-<li>KMeans Clustering Algorithms and Cluster Evaluation</li>
+<li>KMeans Clustering Algorithms, Cluster Evaluation and Cluster visualization</li>
 </ul>
 </li>
 <li>Sudipta Kolay
@@ -223,7 +223,7 @@ paired assets and it, therefore, has more advantage in handling rapidly changing
 <p><a href="https://hackernoon.com/practical-machine-learning-ridge-regression-vs-lasso-a00326371ece">https://hackernoon.com/practical-machine-learning-ridge-regression-vs-lasso-a00326371ece</a></p>
 
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/daehkim/pair-trading">Pair-trading</a> is maintained by <a href="https://github.com/daehkim">daehkim</a>.</span>
+        <span class="site-footer-owner"><a href="https://github.com/daehkim/pair-trading">Pair Trading with Machine Learning</a> is maintained by <a href="https://github.com/daehkim">daehkim</a>.</span>
 
         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
