@@ -17,7 +17,7 @@ In our next stage, we want to pre-select eligible stocks that enable us to sail 
 
 ### Data Imputation
 
-In this step, we imputed the missing values in our preprocessed dataset. We worked with the time series data and the financial ratios separately. We imputed both of them using means, although in a slightly differnt way. For the time series data of stock prices, missing values were replaced by the mean of all the available stock prices for that stock in the training period. Since the financial ratios individually have different bounds we imputed missing values in the financial ratios dataset with the average of all available data for the particular ratio.
+In this step, we imputed the missing values in our preprocessed dataset. We worked with the time series data and the financial ratios separately. We imputed both of them using means, although in a slightly different way. For the time series data of stock prices, missing values were replaced by the mean of all the available stock prices for that stock in the training period. Since the financial ratios individually have different bounds we imputed missing values in the financial ratios dataset with the average of all available data for the particular ratio.
 
 ### Dimensionality Reduction using Principal Component Analysis
 
