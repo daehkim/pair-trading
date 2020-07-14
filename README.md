@@ -97,10 +97,10 @@ We used the machine learning to calculate the spread instead of the log. It will
 We used the log of stock A's prices as data points and the log of stock B's prices as a label. We train the polynomial regression model with these datasets. 
 
 #### Regularization
-For the regularization of the model, we used the LASSO regression. We used the LASSO regression instead of Ridge regression because not only punishing high values of the coefficient but actually setting them to zero if they are not relevant. ([Ridge vs Lasso](https://hackernoon.com/practical-machine-learning-ridge-regression-vs-lasso-a00326371ece))
+For the regularization of the model, we used the Lasso regression. We used the Lasso regression instead of Ridge regression because not only punishing high values of the coefficient but actually setting them to zero if they are not relevant. ([Ridge vs Lasso](https://hackernoon.com/practical-machine-learning-ridge-regression-vs-lasso-a00326371ece))
 
 #### Validation
-In the model, we have two hyperparameters. First one is $\alpha$ in the Lasso regression and the other one is a degree of the polynomial regression. The scikit-learn library already has a module about cross-validation for the $\alpha$ in the Lasso function. It uses the K-fold method. In a case of degree, we did the validation by ourself. First we pick the 66% of datasets as training data. This pick was random because the relation of stock a and b can be changed by time. Then, we used the 33% of datasets as validation data and calculate the RMSE. By comparing the RMSE, we choose the degree.
+In the model, we have two hyperparameters. First one is alpha in the Lasso regression and the other one is a degree of the polynomial regression. The scikit-learn library already has a module about cross-validation for the alpha in the Lasso function. It uses the K-fold method. In a case of degree, we did the validation by ourself. First we pick the 66% of datasets as training data. This pick was random because the relation of stock a and b can be changed by time. Then, we used the 33% of datasets as validation data and calculate the RMSE. By comparing the RMSE, we choose the degree.
 
 #### Function
 
