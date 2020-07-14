@@ -97,10 +97,10 @@ We used the machine learning to calculate the spread instead of the log. It will
 We used the log of stock A's prices as data points and the log of stock B's prices as a label. We train the polynomial regression model with these datasets. 
 
 #### Regularization
-For the regularization of the model, we used the Lasso regression. We used the Lasso regression instead of Ridge regression because not only punishing high values of the coefficient but actually setting them to zero if they are not relevant. ([Ridge vs Lasso](https://hackernoon.com/practical-machine-learning-ridge-regression-vs-lasso-a00326371ece))
+For the regularization of the model, we used the LASSO regression. We used the LASSO regression instead of Ridge regression because not only punishing high values of the coefficient but actually setting them to zero if they are not relevant. ([Ridge vs Lasso](https://hackernoon.com/practical-machine-learning-ridge-regression-vs-lasso-a00326371ece))
 
 #### Validation
-In the model, we have two hyperparameters. First one is alpha in the Lasso regression and the other one is a degree of the polynomial regression. The scikit-learn library already has a module about cross-validation for the alpha in the Lasso function. It uses the K-fold method. In a case of degree, we did the validation by ourself. First we pick the 66% of datasets as training data. This pick was random because the relation of stock a and b can be changed by time. Then, we used the 33% of datasets as validation data and calculate the RMSE. By comparing the RMSE, we choose the degree.
+In the model, we have two hyperparameters. First one is $\alpha$ in the Lasso regression and the other one is a degree of the polynomial regression. The scikit-learn library already has a module about cross-validation for the $\alpha$ in the Lasso function. It uses the K-fold method. In a case of degree, we did the validation by ourself. First we pick the 66% of datasets as training data. This pick was random because the relation of stock a and b can be changed by time. Then, we used the 33% of datasets as validation data and calculate the RMSE. By comparing the RMSE, we choose the degree.
 
 #### Function
 
@@ -113,15 +113,19 @@ It also leads us to calculate the z-score by the following equation:
 z-score = Spread / standard deviation
 
 The standard deviation is calculated by training data, which is the training data prices' spread history.
-Here is the example graph of z-score history for the stock pairs we have. You can see it converges.
+We also used the degree = 4 for the polynomial linear regression hyperparameter. If it becomes too big, it goes to overfitting and will not generate the spread. If the spread distribution is small, it is hard to decide when we long and short the stocks. Here is the example graph of z-score history for the stock pairs we have. You can see it converges.
 
 ![z-score](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/each_pair_z_score.png)
 
-#### Backtesting
+### Backtesting
 
 In this section, we will discuss testing. We apply our trading strategy to the real stock market and check how much we can earn based on our approach. We used the moving windows approach for the testing. For the training data, we used the previous 700 days stock prices. After we train the model with our machine learning algorithm, we calculate the z-score with the generated model and decide whether we will long or short the stocks. The input of backtesting is the z-score history generated in the 'trading strategy' part and the price history. Based on the input, we keep calculating the earning and loss of our stock and inverse. We also track the total asset history and return it as an output of backtesting.
 
+### Implementation
+
 To simplify the backtesting, we just set the initial money as million dollars and the volume of the stocks we trading as 'total assets' / '# of pairs'. Therefore, if our current total asset is $100 and the number of stock pairs is 10, we long/short the stock only with $10. We also calculate the price of the inverse (short) in the everyday base and we didn't consider the commission of trading to simplify.
+
+### Results
 
 We run the backtesting for all the timeline (2007~2015). Here are all the results from the backtesting. The x-label is the daily based time. It does not include market off-day. The y-label is the money (dollars).
 
@@ -150,6 +154,18 @@ the assets' volatility and relationship while the online method assume no such p
 
 #### Total assets kalman filter
 ![portfolio result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/portfolio.png)
+
+
+## Performance Evaluation and Conclusion
+The following table gives some performance metrics of strategies with Linear Regression and Online Linear Regression (Kalman Filter):
+| Metric | Linear Regression | Kalman Filter |
+| --- | --- | --- |
+| Maximum Drawdown | -16.2044% | -3.6690% |
+| Alpha | 20.0352% | 6.3747% |
+| Beta | -0.2437 | 0.2065 | 
+| Annual Volatility | 0.1241 | 0.02758 |
+| Sharpe Ratio | 1.1969 | 3.1478 |
+| Sortino Ratio | 1.7190 | 5.2359 |
 
 ## Contribution
 - Daehyun Kim
