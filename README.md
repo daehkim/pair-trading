@@ -138,13 +138,12 @@ We run the backtesting for all the timeline (2007~2015). Here are all the result
 ![total assets](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/total_assets.png)
 
 ### Linear Regression with Kalman Filter
-We also used kalman filter as an online linear regression method. The idea is to assume linear relationship between the prices of 
+We also used Kalman filter as an online linear regression method. (We used qstrader platform for backtesting and implementation)The idea is to assume linear relationship between the prices of 
 the related assets. We keep updating the relationship at each step on testing data based on the previous results instead of traditional machine learning approach. 
-At each step we take actions upon excessive deviation from the predicted price and the real price. (We use one standard deviation as threshold from domain experience.) 
-The idea is to assume future convergence of the related stocks' prices. We have included results of some of the stocks. 
-Not all of them are satisfying. Rather some even would suffer significant losses over the testing period. The result from 
-the overall portfolio is not as promising as traditional linear would otherwise provide. This is probably because the traditional model keys in more prior information related to
-the assets' volatility and relationship while the online method assume no such prior. Using a pre-assumed threshold from domain experience would not take in enough intrinsic relationship between the underlying assets which could otherwise provide more insights on the timing of execution.
+At each step we take actions upon excessive deviation from the predicted price and the real price. 
+The idea is to assume future convergence of the related stocks' prices. Included below are results of some of the pairs. 
+Not all of them are satisfying and, rather, some even would suffer significant losses over the testing period. The portfolio as whole, however, has decent performance.
+We searched through possible action threshold pairs to find the optimal performance upon testing. 
 
 
 #### Each pair's assets kalman filter
@@ -167,6 +166,11 @@ The following table gives some performance metrics of strategies with Linear Reg
 | Sharpe Ratio | 1.1969 | 3.1478 |
 | Sortino Ratio | 1.7190 | 5.2359 |
 
+Linear regression has better alpha performance than Kalman 20% vs 6.374%. Kalman however has a much lower risk compared
+to linear regression and it also has a relatively satisfying earning performance. Linear regression uses previous information and therefore it is more capable at catching 
+market momentum. Kalman, on the other hand, uses no prior information but the dynamics of current market momentum. It keeps updating and estimating the intrinsic relationship between 
+paired assets and it, therefore, has more advantage in handling rapidly changing market environment.
+
 ## Contribution
 - Daehyun Kim
   - Trading Strategy Structure
@@ -182,7 +186,9 @@ The following table gives some performance metrics of strategies with Linear Reg
 - Sudipta Kolay
   - Data Imputation
   - Dimensionality Reduction using Principal Component Analysis
-  
+- Zhenyu Jia
+  - Kalman filter strategy implementation and backtesting
+ 
 All members constibuted to the final project report.
 
 ## Reference
