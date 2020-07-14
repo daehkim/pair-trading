@@ -74,7 +74,7 @@ The resultant reduced datasets are then concatenated to create a 20 dimensional 
 <p>Take WDFC and HSIC as an example. The relationship of their stock price over time is illustrated below.
 <img src="https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/WDFC_HSIC.png" alt="Stock Price Relation for WDFC and HSIC"></p>
 <p>We performed ADF test to their spread as we defined in next section and plot the time series process of their spread.
-<img src="https://github.com/daehkim/pair-trading/blob/master/pictures/spread_wdfc_hsic.png" alt="Spread of WDFC and HSIC"></p>
+<img src="https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/spread_wdfc_hsic.png" alt="Spread of WDFC and HSIC"></p>
 <p>The ADF test gives p-value as the result. For this pair, the p-value is 2.8702051939237176e-05, which is less than significant level 0.05 (as we set). Thus, we are over 95% confident to say that the spread of WDFC and HSIC's stock price is stationary and they are valid pair.</p>
 <p>We performed such test to all pairs and select at least one pair in each cluster to diversity our portfolio. Then, a strategy that observed based on the movement of the spread can be designed and executed well in the later part.</p>
 <h2>
@@ -123,133 +123,6 @@ the assets' volatility and relationship while the online method assume no such p
 <h4>
 <a id="total-assets-kalman-filter" class="anchor" href="#total-assets-kalman-filter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Total assets kalman filter</h4>
 <p><img src="https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/portfolio.png" alt="portfolio result"></p>
-<div class="highlight highlight-source-js"><pre><span class="pl-c">// Javascript code with syntax highlighting.</span>
-<span class="pl-k">var</span> <span class="pl-en">fun</span> <span class="pl-c1">=</span> <span class="pl-k">function</span> <span class="pl-en">lang</span><span class="pl-kos">(</span><span class="pl-s1">l</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-  <span class="pl-s1">dateformat</span><span class="pl-kos">.</span><span class="pl-c1">i18n</span> <span class="pl-c1">=</span> <span class="pl-en">require</span><span class="pl-kos">(</span><span class="pl-s">'./lang/'</span> <span class="pl-c1">+</span> <span class="pl-s1">l</span><span class="pl-kos">)</span>
-  <span class="pl-k">return</span> <span class="pl-c1">true</span><span class="pl-kos">;</span>
-<span class="pl-kos">}</span></pre></div>
-<div class="highlight highlight-source-ruby"><pre><span class="pl-c"># Ruby code with syntax highlighting</span>
-<span class="pl-v">GitHubPages</span>::<span class="pl-v">Dependencies</span><span class="pl-kos">.</span><span class="pl-en">gems</span><span class="pl-kos">.</span><span class="pl-en">each</span> <span class="pl-k">do</span> |<span class="pl-s1">gem</span><span class="pl-kos">,</span> <span class="pl-s1">version</span>|
-  <span class="pl-en">s</span><span class="pl-kos">.</span><span class="pl-en">add_dependency</span><span class="pl-kos">(</span><span class="pl-s1">gem</span><span class="pl-kos">,</span> <span class="pl-s">"= <span class="pl-s1"><span class="pl-kos">#{</span><span class="pl-s1">version</span><span class="pl-kos">}</span></span>"</span><span class="pl-kos">)</span>
-<span class="pl-k">end</span></pre></div>
-<h4>
-<a id="header-4" class="anchor" href="#header-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Header 4</h4>
-<ul>
-<li>This is an unordered list following a header.</li>
-<li>This is an unordered list following a header.</li>
-<li>This is an unordered list following a header.</li>
-</ul>
-<h5>
-<a id="header-5" class="anchor" href="#header-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Header 5</h5>
-<ol>
-<li>This is an ordered list following a header.</li>
-<li>This is an ordered list following a header.</li>
-<li>This is an ordered list following a header.</li>
-</ol>
-<h6>
-<a id="header-6" class="anchor" href="#header-6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Header 6</h6>
-<table>
-<thead>
-<tr>
-<th align="left">head1</th>
-<th align="left">head two</th>
-<th align="left">three</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">ok</td>
-<td align="left">good swedish fish</td>
-<td align="left">nice</td>
-</tr>
-<tr>
-<td align="left">out of stock</td>
-<td align="left">good and plenty</td>
-<td align="left">nice</td>
-</tr>
-<tr>
-<td align="left">ok</td>
-<td align="left">good <code>oreos</code>
-</td>
-<td align="left">hmm</td>
-</tr>
-<tr>
-<td align="left">ok</td>
-<td align="left">good <code>zoute</code> drop</td>
-<td align="left">yumm</td>
-</tr>
-</tbody>
-</table>
-<h3>
-<a id="theres-a-horizontal-rule-below-this" class="anchor" href="#theres-a-horizontal-rule-below-this" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>There's a horizontal rule below this.</h3>
-<hr>
-<h3>
-<a id="here-is-an-unordered-list" class="anchor" href="#here-is-an-unordered-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Here is an unordered list:</h3>
-<ul>
-<li>Item foo</li>
-<li>Item bar</li>
-<li>Item baz</li>
-<li>Item zip</li>
-</ul>
-<h3>
-<a id="and-an-ordered-list" class="anchor" href="#and-an-ordered-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>And an ordered list:</h3>
-<ol>
-<li>Item one</li>
-<li>Item two</li>
-<li>Item three</li>
-<li>Item four</li>
-</ol>
-<h3>
-<a id="and-a-nested-list" class="anchor" href="#and-a-nested-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>And a nested list:</h3>
-<ul>
-<li>level 1 item
-<ul>
-<li>level 2 item</li>
-<li>level 2 item
-<ul>
-<li>level 3 item</li>
-<li>level 3 item</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>level 1 item
-<ul>
-<li>level 2 item</li>
-<li>level 2 item</li>
-<li>level 2 item</li>
-</ul>
-</li>
-<li>level 1 item
-<ul>
-<li>level 2 item</li>
-<li>level 2 item</li>
-</ul>
-</li>
-<li>level 1 item</li>
-</ul>
-<h3>
-<a id="small-image" class="anchor" href="#small-image" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Small image</h3>
-<p><img src="https://github.githubassets.com/images/icons/emoji/octocat.png" alt="Octocat"></p>
-<h3>
-<a id="large-image" class="anchor" href="#large-image" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Large image</h3>
-<p><img src="https://guides.github.com/activities/hello-world/branching.png" alt="Branching"></p>
-<h3>
-<a id="definition-lists-can-be-used-with-html-syntax" class="anchor" href="#definition-lists-can-be-used-with-html-syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Definition lists can be used with HTML syntax.</h3>
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre>
-<pre><code>The final element.
-</code></pre>
 <h2>
 <a id="contribution" class="anchor" href="#contribution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contribution</h2>
 <ul>
@@ -265,11 +138,18 @@ the assets' volatility and relationship while the online method assume no such p
 <li>Data Collection and Preprocessing</li>
 <li>DBSCAN Algorithms for Clustering</li>
 <li>Cointegration test and Pair Selection</li>
+<li>Performance Metrics</li>
 </ul>
 </li>
 <li>Nael Mizanur Rahman
 <ul>
 <li>KMeans Clustering Algorithms and Cluster Evaluation</li>
+</ul>
+</li>
+<li>Sudipta Kolay
+<ul>
+<li>Data Imputation</li>
+<li>Dimensionality Reduction using Principal Component Analysis</li>
 </ul>
 </li>
 </ul>
