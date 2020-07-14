@@ -165,5 +165,9 @@ All members constibuted to the final project report.
 
 ## Reference
 https://blog.quantinsti.com/pairs-trading-basics/
+
 https://en.wikipedia.org/wiki/Pairs_trade
+
 https://www.quantstart.com/articles/kalman-filter-based-pairs-trading-strategy-in-qstrader/
+
+https://hackernoon.com/practical-machine-learning-ridge-regression-vs-lasso-a00326371ece
