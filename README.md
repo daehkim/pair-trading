@@ -38,11 +38,11 @@ The resultant reduced datasets are then concatenated to create a 20 dimensional 
 Two clustering algorithms were explored to create clusters of stocks: 
 
 ## KMeans Clustering
-The KMeans clustering algorithm is a popular clustering methodolgy employed in pair-trading implementeations. The most important aspect of this algorithm is the determination of the number of clusters. This can be ascertained using an elbow-method based cross-validation technique. There are three loss-metrics (or scores) that can be used in the elbow method which are: 
+The KMeans clustering algorithm is a popular clustering methodolgy. The most important aspect of this algorithm is the determination of the number of clusters. This can be ascertained using an elbow-method based cross-validation technique. There are three loss-metrics (or scores) that can be used in the elbow method which are: 
 
 1) Distortion Score: computes the sum of squared distances from each point to its assigned center (smaller is better)
 2) Silhouette Score: calculates the mean Silhouette Coefficient of all samples (smaller is better)
-3) Calinski Harabz Score: copmutes the ratio of dispersion between clusters to dispersion within clusters (larger is better)
+3) Calinski Harabz Score: computes the ratio of dispersion between clusters to dispersion within clusters (larger is better)
 
 The dataset is first normalized before the elbow analysis is carried out for each of the scores mentioned above, the results of which are shown below. The elbow for each of the analyses are also indicated. It should be noted that the elbow is determined using a built-in “knee point detection algorithm”. This algorithm sometimes converges on a local minima/maxima giving erroneous elbows, as is evident from the Calinski Harabz Score where the global maxima is approximately 30. The maximum cluster number from each of these independant metrics was finally used in training the KMeans Algorithm. In this case, the max cluster elbow among the three was 31 which is what was finally chosen as the number of clusters in the training. Choosing a max among the three is based on the intention of making each cluster as small and isolated as possible.
 
