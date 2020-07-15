@@ -170,7 +170,7 @@ However, Kalman Filter undertakes lower risk while it still maintains relatively
 Preference of strategies highly depends on investor's level of risk aversion. 
 A risk taker can bare up to -16% loss of investment and he/she might prefer Linear Regression. A risk averse person, on the other hand, 
 might favour Kalman Filter for its lower risk undertaking. However, for the moment, Pairs Trading Strategy has demonstrated its high investment potential especially with the advanced statistical analysis. 
-Researchers can further investigate in this filed to achieve better alpha performance and lower risk at the same time. 
+Researchers can further investigate in this field to achieve better alpha performance and lower risk at the same time. 
 
 ## Contribution
 - Daehyun Kim
