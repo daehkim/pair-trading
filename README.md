@@ -148,12 +148,10 @@ We searched through possible action threshold pairs to find the optimal performa
 
 
 #### Each pair's assets kalman filter
-![pair 1 result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/43350,82651.png)
-![pair 2 result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/44644,90458.png)
-![pair 3 result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/60186,81095.png)
+![each assets](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/each_pair_assets_kalman.png)
 
 #### Total assets kalman filter
-![portfolio result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/portfolio.png)
+![portfolio result](https://raw.githubusercontent.com/daehkim/pair-trading/master/pictures/total_assets_kalman.png)
 
 
 ## Performance Evaluation and Conclusion
