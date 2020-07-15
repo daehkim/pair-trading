@@ -157,7 +157,7 @@ We searched through possible action threshold pairs to find the optimal performa
 
 
 ## Performance Evaluation and Conclusion
-The following table gives some performance metrics of strategies with Linear Regression and Online Linear Regression (Kalman Filter):
+The following table gives some performance metrics of strategies with Linear Regression and Online Linear Regression (Kalman Filter). Note that those metrics are evaluated only through testing period, which is from 2016-01-04 to 2019-12-31, to be more represensitive. 
 | Metric | Linear Regression | Kalman Filter |
 | --- | --- | --- |
 | Maximum Drawdown | -16.2044% | -3.6690% |
@@ -167,10 +167,9 @@ The following table gives some performance metrics of strategies with Linear Reg
 | Sharpe Ratio | 1.1969 | 3.1478 |
 | Sortino Ratio | 1.7190 | 5.2359 |
 
-Linear regression has better alpha performance than Kalman 20% vs 6.374%. Kalman however has a much lower risk compared
-to linear regression and it also has a relatively satisfying earning performance. Linear regression uses previous information and therefore it is more capable at catching 
-market momentum. Kalman, on the other hand, uses no prior information but the dynamics of current market momentum. It keeps updating and estimating the intrinsic relationship between 
-paired assets and it, therefore, has more advantage in handling rapidly changing market environment.
+The above statistics show that Linear Regression has better alpha performance (excess return) than Kalman Filter, which is 20% versus 6.374%. However, results from Kalman Filter show a lower risk level than that from only Linear Regression while maintaining a satisfying though not astounding earning performance. We can observe that the maximum drawdown level and annual volatility level of Kalman Filter are both much smaller than those of Linear Regression. This might due to the uses of previous information for Linear Regression and therefore it is more capable at catching market momentum. Kalman Filter, on the other hand, uses no prior information but the dynamics of current market momentum. It keeps updating and estimating the intrinsic relationship between paired assets and it, therefore, has more advantage in handling rapidly changing market environment. Both strategies show very low beta level, which is consistent with our assumption that Pair Trading Strategy is market-neural. The Sharpe ratio and Sortino Ratio also indicate that Kalman Filter has better performance on rate of return when controlling certain level of risk.
+
+Which strategy performs better highly depends on investor's level of risk aversion. If the investor is a risk taker and can bare the -16% loss of his investment, then he might think Linear Regression would be a good strategy for him. On the other hand, if the investor is risk aversive, then he would apply Kalman Filter to his trading model while anticipate less rate of return to compensate his unwillingness of taking risk. However, for the moment, the amount of return that Pairs Trading Strategy can gain is surely compelling, especially when applying advanced statistical analysis. Further researchers can continue investigate in this area to pursue a better performance while maintaining low level of risk that can be satisfied most investors. 
 
 ## Contribution
 - Daehyun Kim
